@@ -24,6 +24,7 @@ const doctorSchema = new Schema({
     required: true,
     minlength: 5
   },
+  patients:[Patient.schema],
   appointments: [Appointment.schema]
 });
 

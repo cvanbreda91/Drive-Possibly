@@ -27,7 +27,7 @@ const patientSchema = new Schema({
   drNotes: { 
     type: String 
   },
-  patientNotes: { 
+  appointmentNotes: { 
     type: String 
   },
   appointments: [Appointment.schema]
