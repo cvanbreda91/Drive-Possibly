@@ -21,6 +21,6 @@ const drugSchema = new Schema({
 });
 
 // Using mongoose.model() to compile a model based on the schema 'patientSchema'
-const Drug = mongoose.model('drugSchema', drugSchema);
+const Drug = mongoose.model('Drug', drugSchema);
 
 module.exports = Drug;

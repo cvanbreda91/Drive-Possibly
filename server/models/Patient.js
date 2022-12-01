@@ -30,7 +30,7 @@ const patientSchema = new Schema({
   appointmentNotes: { 
     type: String 
   },
-  appointments: [Appointment.schema]
+  appointments: [{ type: Schema.Types.ObjectId, ref: "Appointment" }]
 });
 
 // Using mongoose.model() to compile a model based on the schema 'patientSchema'
