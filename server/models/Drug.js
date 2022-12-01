@@ -13,7 +13,8 @@ const drugSchema = new Schema({
         type:Number
     },
     dinNumber:{
-        type:String
+        type:String,
+        match: [/^[0-9]{8}$/, 'Must use a valid 8 digit DIN number'],
     },
     description:{
         type:String
