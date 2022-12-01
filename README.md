@@ -1,6 +1,5 @@
 # PatientsPlease
 
-# Team Profile Generator
    ## License: NONE  
    ### 
     
