@@ -62,6 +62,8 @@ type Mutation{
     addAppointment(appointmentDate: String!): Appointment
     removeAppointment(appointmentDate: String!): Appointment
     updateDrug(_id: ID!, inventory: Int!): Drug
+    addOrder(drug: [ID]!, patient:ID!): Order
+    updateDoctor(drFirstName: String, drLastName: String, drEmail: String, password: String): Doctor
 }
 
 `
