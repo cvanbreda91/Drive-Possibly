@@ -40,8 +40,32 @@ type Order{
     patient:[Patient]
 }
 
+type Auth {
+    token: ID!
+    doctor:Doctor
+  }
+
+
 type Query{
     doctors:[Doctor]
+    patient:[Patient]
+    drugs:[Drug]
+    order:[Order]
 }
+
+type Mutation{
+    login(email: String!, password: String!): Auth
+    addDoctor(email: String!, password: String!): Auth
+    addPatient(email: String!, password: String!): Auth
+    addNote(noteText: String!): Patient
+    removeNote(noteText: String!): Patient
+    addAppointment(appointmentDate: String!): Appointment
+    removeAppointment(appointmentDate: String!): Appointment
+    updateDrug(_id: ID!, inventory: Int!): Drug
+}
+
 `
+
+
+
 module.exports = typeDefs;
