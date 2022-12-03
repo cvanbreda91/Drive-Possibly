@@ -7,10 +7,8 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
-import Header from './pages/Header';
 import Footer from './components/Footer';
-
+import Nav from './components/Nav'
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
@@ -40,10 +38,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+   
       <Router>
+      <Nav />
         <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
           <div className="container">
+         
             <Routes>
               <Route 
                 path="/" 
@@ -70,6 +70,7 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
+
           </div>
           <Footer />
         </div>
