@@ -4,22 +4,56 @@ export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
-      user {
+      doctor {
         _id
-        username
+        email
       }
     }
   }
 `;
 
-export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+export const ADD_DOCTOR = gql`
+  mutation addDoctor(
+    $drFirstName: String!
+    $drLastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    addDoctor(
+      drFirstName: $drFirstName
+      drLastName: $drLastName
+      email: $email
+      password: $password
+    ) {
       token
-      user {
+      doctor {
         _id
-        username
       }
+    }
+  }
+`;
+
+export const ADD_ORDER = gql`
+  mutation addOrder($drugs: [ID]!) {
+    addOrder(drugs: $drugs) {
+      purchaseDate
+      drugs {
+        _id
+        drugName
+        inventory
+        dinNumber 
+        description
+      }
+    }
+  }
+`;
+
+export const ADD_PATIENT = gql`
+  mutation addPatient($patient: [ID]!) {
+    addPatient(patient: $patients) {
+      patientFirstName
+      patientLastName
+      patientEmail
     }
   }
 `;

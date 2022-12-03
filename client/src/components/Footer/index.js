@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
-import { useMutation } from '@apollo/client';
-import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+// import { useMutation } from '@apollo/client';
+// import { ADD_THOUGHT } from '../../utils/mutations';
+// import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 
-const Footer = () =>{
-    return (
-        <div>
+// const Footer = () =>{
+//     return (
+//         <div>
 
-        </div>
-    )
-}
-export default Footer
+//         </div>
+//     )
+// }
+// export default Footer
