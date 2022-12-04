@@ -37,13 +37,14 @@ function Nav() {
     }
  }
   return (
-    <header className="flex-row px-1 pageHead">
-      <h1 className='logo'> 
+    <header className="flex-row px-1">
+      <h1> 
         <Link to="/">
-         Patients Please
+          <span role="img" aria-label="shopping bag">:shopping_bags:</span>
+          -Shop-Shop
         </Link>
       </h1>
-      <nav className ='navBar'>
+      <nav>
         {showNavigation()}
       </nav>
     </header>
