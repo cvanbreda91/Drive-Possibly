@@ -89,7 +89,7 @@ function Nav() {
   return (
     <>
       <Box bg="#52AD9C" px={10}>
-        <Flex h={16} alignItems={'left'} justifyContent={'space-between'}>
+        <Flex h='150px' alignItems={'left'} justifyContent={'space-between'}>
           <Box as={Link} to='/'>
           <Image
     h='150px'
