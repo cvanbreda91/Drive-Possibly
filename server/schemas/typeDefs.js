@@ -66,8 +66,28 @@ type Mutation{
     updateDoctor(drFirstName: String, drLastName: String, drEmail: String, password: String): Doctor
 }
 
-`
+`  
 
 
 
 module.exports = typeDefs;
+export const ADD_DOCTOR = gql`
+  mutation addDoctor(
+    $drFirstName: String!
+    $drLastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    addDoctor(
+      drFirstName: $drFirstName
+      drLastName: $drLastName
+      email: $email
+      password: $password
+    ) {
+      token
+      doctor {
+        _id
+      }
+    }
+  }
+`;
