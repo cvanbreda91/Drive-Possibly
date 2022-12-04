@@ -92,9 +92,8 @@ function Nav() {
         <Flex h={16} alignItems={'left'} justifyContent={'space-between'}>
           <Box as={Link} to='/'>
           <Image
-    boxSize='100px'
-    objectFit='cover'
-    src={photo}
+    h='150px'
+    src='https://github.com/cvanbreda91/PatientsPlease/blob/main/client/src/assets/PatientsPlease-Logo-removebg-preview.png?raw=true'
     alt='PatientsPlease'
   />
           </Box>
