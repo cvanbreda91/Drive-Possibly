@@ -1,53 +1,115 @@
 import React from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import {
+  Heading,
+  Button,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Flex,
+  Box,
+  Image,
+  Stack,
+  useColorMode,
+} from '@chakra-ui/react'
+import {
+  MoonIcon,
+  SunIcon,
+} from '@chakra-ui/icons';
+
+
 function Nav() {
+  const { colorMode, toggleColorMode } = useColorMode();
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/orderHistory">
-              Order History
-            </Link>
-          </li>
-          <li className="mx-1">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
-        </ul>
+        <Breadcrumb separator=''>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} to='/orderHistory'>Order History</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} to='/' onClick={() => Auth.logout()}>Logout</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/signup">
-              Signup
-            </Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/login">
-              Login
-            </Link>
-          </li>
-        </ul>
-      );
+        <Flex alignItems={'left'}>
+          <Breadcrumb separator=''>
+            <Box
+              m={[2, 3]}
+              as='button'
+              height='40px'
+              lineHeight='1.2'
+              transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+              border='1px'
+              px='25px'
+              borderRadius='5px'
+              fontSize='25px'
+              bg='#53687E'
+              color='#FEFEE3'
+              _hover={{
+                bg: '#53687E',
+                transform: 'scale(1.2)',
+                borderColor: '#bec3c9',
+              }}
+            >
+              <BreadcrumbItem>
+                <BreadcrumbLink as={Link} to='/signup'>Signup</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Box>
+            <Box
+              m={[2, 3]}
+              as='button'
+              height='40px'
+              lineHeight='1.2'
+              transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+              border='1px'
+              px='25px'
+              borderRadius='5px'
+              fontSize='25px'
+              bg='#53687E'
+              color='#FEFEE3'
+              _hover={{
+                bg: '#53687E',
+                transform: 'scale(1.2)',
+                borderColor: '#bec3c9',
+              }}
+            >
+              <BreadcrumbItem>
+                <BreadcrumbLink as={Link} to='/login'>Login</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Box>
+          </Breadcrumb>
+        </Flex>
+      )
     }
- }
+  }
   return (
-    <header className="flex-row px-1">
-      <h1> 
-        <Link to="/">
-          <span role="img" aria-label="shopping bag">:shopping_bags:</span>
-          -Shop-Shop
-        </Link>
-      </h1>
-      <nav>
-        {showNavigation()}
-      </nav>
-    </header>
+    <>
+      <Box bg="#52AD9C" px={10}>
+        <Flex h={16} alignItems={'left'} justifyContent={'space-between'}>
+          <Box as={Link} to='/'>
+          <Image
+    boxSize='100px'
+    objectFit='cover'
+    src={photo}
+    alt='PatientsPlease'
+  />
+          </Box>
+          <Flex alignItems={'left'}>
+            {showNavigation()}
+            <Stack direction={'row'} spacing={7}>
+              <Button onClick={toggleColorMode} m={[2, 3]}>
+                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              </Button>
+            </Stack>
+          </Flex>
+        </Flex>
+      </Box>
+    </>
   );
 }
+
 export default Nav;

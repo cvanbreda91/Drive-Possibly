@@ -1,77 +1,87 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { ADD_DOCTOR} from '../utils/mutations';
-
 import Auth from '../utils/auth';
+import { ADD_DOCTOR } from '../utils/mutations';
 
-const Signup = () => {
-  const [formState, setFormState] = useState({
-    email: '',
-    password: '',
-  });
-  const [addDoctor, { error }] = useMutation(ADD_DOCTOR);
+function Signup(props) {
+  const [formState, setFormState] = useState({ drFirstName: " ", drLastName: " ", drEmail: '', drPassword: '' });
+  const [addDoctor] = useMutation(ADD_DOCTOR);
 
-  // update state based on form input changes
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const mutationResponse = await addDoctor({
+      variables: {
+        drFirstName: formState.drFirstName,
+        drLastName: formState.drLastName,
+        drEmail: formState.drEmail,
+        drPassword: formState.drPassword
+      },
+    });
+    const token = mutationResponse.data.addDoctor.token;
+    Auth.login(token);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormState({
       ...formState,
       [name]: value,
     });
   };
 
-  // submit form
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const { data } = await addDoctor({
-        variables: { ...formState },
-      });
-
-      Auth.login(data.addDoctor.token);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Sign Up</h4>
-          <div className="card-body">
-            <form onSubmit={handleFormSubmit}>
-              <input
-                className="form-input"
-                placeholder="Your email"
-                name="email"
-                type="email"
-                id="email"
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <input
-                className="form-input"
-                placeholder="******"
-                name="password"
-                type="password"
-                id="password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button className="btn d-block w-100" type="submit">
-                Submit
-              </button>
-            </form>
+    <div className="container my-1">
+      <Link to="/login">← Go to Login</Link>
 
-            {error && <div>Signup failed</div>}
-          </div>
+      <h2>Signup</h2>
+      <form onSubmit={handleFormSubmit}>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drFirstName">First Name:</label>
+          <input
+            placeholder="First"
+            name="drFirstName"
+            type="drFirstName"
+            id="drFirstName"
+            onChange={handleChange}
+          />
         </div>
-      </div>
-    </main>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drLastName">Last Name:</label>
+          <input
+            placeholder="Last"
+            name="drLastName"
+            type="drLastName"
+            id="drLastName"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drEmail">Email:</label>
+          <input
+            placeholder="youremail@email.com"
+            name="drEmail"
+            type="drEmail"
+            id="drEmail"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drPassword">Password:</label>
+          <input
+            placeholder="******"
+            name="drPassword"
+            type="drPassword"
+            id="drPassword"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row flex-end">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
   );
-};
+}
 
 export default Signup;

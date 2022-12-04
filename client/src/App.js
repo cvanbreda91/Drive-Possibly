@@ -1,4 +1,23 @@
 import React from 'react';
+import { 
+  ChakraProvider, 
+  Box,
+  Flex,
+  Avatar,
+  Link,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useDisclosure,
+  useColorModeValue,
+  Stack,
+  useColorMode,
+  Center
+} from '@chakra-ui/react'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
@@ -16,6 +35,7 @@ import PatientNotes from './pages/PatientNotes';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import DoctorPage from './pages/DoctorsPage'
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -38,6 +58,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    <ChakraProvider>
     <ApolloProvider client={client}>
       <Router>
         <Nav />
@@ -79,6 +100,7 @@ function App() {
         </div>
       </Router>
     </ApolloProvider>
+    </ChakraProvider>
   );
 }
 
