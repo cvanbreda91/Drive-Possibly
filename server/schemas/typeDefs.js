@@ -56,7 +56,7 @@ type Query{
 type Mutation{
     login(drEmail: String!, drPassword: String!): Auth
     addDoctor(drEmail: String!, drPassword: String!, drFirstName: String!, drLastName: String!): Doctor
-    addPatient(patientFirstName: String!, patientLastName: String! patientEmail: String, patientPassword: String, drNotes: String,  appointmentNotes: String, appointments: String): Patient
+    addPatient(patientFirstName: String!, patientLastName: String! patientEmail: String!, patientPassword: String, drNotes: String,  appointmentNotes: String, appointments: String): Patient
     addNote(noteText: String!): Patient
     removeNote(noteText: String!): Patient
     addAppointment(appointmentDate: String!): Appointment

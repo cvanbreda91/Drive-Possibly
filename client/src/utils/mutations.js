@@ -67,10 +67,12 @@ export const ADD_PATIENT = gql`
   mutation addPatient(
     $patientFirstName: String!
     $patientLastName: String!
+    $patientEmail: String!
   ) {
     addPatient(
       patientFirstName: $patientFirstName
       patientLastName: $patientLastName
+      patientEmail: $patientEmail
     )
   }
 `;
