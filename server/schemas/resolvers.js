@@ -6,10 +6,12 @@ const resolvers = {
         doctors: async () => {
             return Doctor.find().sort();
         },
-        // appointments:async(parent)=>{ 
-        //     const params = {             
-        //     }
-        // }
+        drugs: async () => {
+            return Drug.find();
+        },
+        patient: async () => {
+            return Patient.find();
+        },
     },
     Mutation: {
         addDoctor: async (parent, args) => {
@@ -42,20 +44,15 @@ const resolvers = {
 
             return await Drug.findByIdAndUpdate(_id, { $inc: { inventory: decrement } }, { new: true });
         },
+        addDrug: async (parent, args, context) => {
+            const drug = await Drug.create(args);
+
+            return drug ;
+        },
         addPatient: async (parent, args, context) => {
-            if (context.doctor) {
-                const patient = await Patient.create({ ...args, email: context.doctor.email });
+            const patient = await Patient.create(args);
 
-                await Doctor.findByIdAndUpdate(
-                    { _id: context.doctor._id },
-                    { $push: { patients: patient._id } },
-                    { new: true }
-                );
-
-                return patient;
-            }
-
-            throw new AuthenticationError('You need to be logged in!');
+            return patient ;
         },
         addNote: async () => {
 
@@ -68,11 +65,11 @@ const resolvers = {
                 throw new AuthenticationError('Incorrect credentials');
             }
 
-            const correctPw = await doctor.isCorrectPassword(password);
+            // const correctPw = await doctor.isCorrectPassword(password);
 
-            if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials');
-            }
+            // if (!correctPw) {
+            //     throw new AuthenticationError('Incorrect credentials');
+            // }
 
             const token = signToken(doctor);
 

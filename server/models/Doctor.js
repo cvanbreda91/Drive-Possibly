@@ -28,17 +28,17 @@ const doctorSchema = new Schema({
   patients:[{ type: Schema.Types.ObjectId, ref: "Patient" }],
   appointments: [{ type: Schema.Types.ObjectId, ref: "Appointment" }]
 });
-doctorSchema.pre('save', async function(next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-  next();
-});
+// doctorSchema.pre('save', async function(next) {
+//   if (this.isNew || this.isModified('password')) {
+//     const saltRounds = 10;
+//     this.password = await bcrypt.hash(this.password, saltRounds);
+//   }
+//   next();
+// });
 // compare the incoming password with the hashed password
-doctorSchema.methods.isCorrectPassword = async function(password) {
-  return await bcrypt.compare(password, this.password);
-};
+// doctorSchema.methods.isCorrectPassword = async function(password) {
+//   return await bcrypt.compare(password, this.password);
+// };
 // Using mongoose.model() to compile a model based on the schema 'doctorSchema'
 const Doctor = mongoose.model('Doctor', doctorSchema);
 

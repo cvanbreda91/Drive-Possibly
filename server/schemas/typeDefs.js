@@ -43,7 +43,7 @@ type Order{
 type Auth {
     token: ID!
     doctor:Doctor
-  }
+}
 
 
 type Query{
@@ -54,16 +54,18 @@ type Query{
 }
 
 type Mutation{
-    login(email: String!, password: String!): Auth
-    addDoctor(email: String!, password: String!): Auth
-    addPatient(email: String!, password: String!): Auth
+    login(drEmail: String!, drPassword: String!): Auth
+    addDoctor(drEmail: String!, drPassword: String!, drFirstName: String!, drLastName: String!): Doctor
+    addPatient(patientFirstName: String!, patientLastName: String! patientEmail: String, patientPassword: String, drNotes: String,  appointmentNotes: String, appointments: String): Patient
     addNote(noteText: String!): Patient
     removeNote(noteText: String!): Patient
     addAppointment(appointmentDate: String!): Appointment
     removeAppointment(appointmentDate: String!): Appointment
+    addDrug(drugName:String!, inventory: Int!, dinNumber:String!, description:String!):Drug
     updateDrug(_id: ID!, inventory: Int!): Drug
     addOrder(drug: [ID]!, patient:ID!): Order
     updateDoctor(drFirstName: String, drLastName: String, drEmail: String, password: String): Doctor
+
 }
 
 `
