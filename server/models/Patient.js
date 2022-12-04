@@ -16,13 +16,12 @@ const patientSchema = new Schema({
   },
   patientEmail: {
     type: String,
-    required: true,
-    unique: true
+    unique: true,
+    required: true
+
   },
   patientPassword: {
     type: String,
-    required: true,
-    minlength: 5
   },
   drNotes: { 
     type: String 
