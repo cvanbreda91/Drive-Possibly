@@ -19,6 +19,7 @@ type Appointment{
 }
 
 type Patient{
+    _id:ID
     patientFirstName:String
     patientLastName:String
     patientEmail:String
@@ -29,6 +30,7 @@ type Patient{
 }
 
 type Drug{
+    _id:ID
     drugName:String
     inventory:Int
     dinNumber:Int
@@ -36,6 +38,7 @@ type Drug{
 }
 
 type Order{
+    _id:ID
     drug:[Drug]
     patient:[Patient]
 }

@@ -32,47 +32,47 @@ export const ADD_DOCTOR = gql`
   }
 `;
 
-export const ADD_DRUG = gql`
-  mutation addDrug(
-    $drugName: String!
-    $inventory: Int!
-    $dinNumber: String!
-    $description: String!
-  ) {
-    addDrug(
-      drugName: $drugName
-      inventory: $inventory
-      dinNumber: $dinNumber
-      description: $description
-    ) 
-  }
-`;
+// export const ADD_DRUG = gql`
+//   mutation addDrug(
+//     $drugName: String!
+//     $inventory: Int!
+//     $dinNumber: String!
+//     $description: String!
+//   ) {
+//     addDrug(
+//       drugName: $drugName
+//       inventory: $inventory
+//       dinNumber: $dinNumber
+//       description: $description
+//     ) 
+//   }
+// `;
 
-export const ADD_ORDER = gql`
-  mutation addOrder($drugs: [ID]!) {
-    addOrder(drugs: $drugs) {
-      purchaseDate
-      drugs {
-        _id
-        drugName
-        inventory
-        dinNumber 
-        description
-      }
-    }
-  }
-`;
+// export const ADD_ORDER = gql`
+//   mutation addOrder($drugs: [ID]!) {
+//     addOrder(drugs: $drugs) {
+//       purchaseDate
+//       drugs {
+//         _id
+//         drugName
+//         inventory
+//         dinNumber 
+//         description
+//       }
+//     }
+//   }
+// `;
 
-export const ADD_PATIENT = gql`
-  mutation addPatient(
-    $patientFirstName: String!
-    $patientLastName: String!
-    $patientEmail: String!
-  ) {
-    addPatient(
-      patientFirstName: $patientFirstName
-      patientLastName: $patientLastName
-      patientEmail: $patientEmail
-    )
-  }
-`;
+// export const ADD_PATIENT = gql`
+//   mutation addPatient(
+//     $patientFirstName: String!
+//     $patientLastName: String!
+//     $patientEmail: String!
+//   ) {
+//     addPatient(
+//       patientFirstName: $patientFirstName
+//       patientLastName: $patientLastName
+//       patientEmail: $patientEmail
+//     )
+//   }
+// `;
