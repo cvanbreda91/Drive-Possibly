@@ -1,10 +1,14 @@
-import React from 'react';
-import PatientNotes from '../PatientNotes';
+import React from "react";
+import Drugs from "../components/Drugs";
+import Cart from "../components/Cart";
 
-import Auth from '../../utils/auth';
-import { useQuery } from '@apollo/client';
-import { QUERY_THOUGHTS, QUERY_ME_BASIC } from '../../utils/queries';
-
-const Drugs = () => {}
+const Drugs = () => {
+    return (
+        <div className="container">
+            <Drugs />
+            <Cart />
+        </div>
+    );
+}
 
 export default Drugs;

@@ -1,14 +1,16 @@
-// import React, { useState } from 'react';
+import React from 'react';
 
-// import { useMutation } from '@apollo/client';
-// import { ADD_THOUGHT } from '../../utils/mutations';
-// import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+function Footer() {
 
-// const Footer = () =>{
-//     return (
-//         <div>
+    // The renderPage method uses a switch statement to render the appropriate current page
 
-//         </div>
-//     )
-// }
-// export default Footer
+    return (
+        <footer className="m-12">
+            <center>
+                <p> &copy; 1991 Courtney, Inc.</p>
+            </center>
+        </footer>
+    );
+}
+
+export default Footer;
