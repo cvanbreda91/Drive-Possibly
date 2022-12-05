@@ -1,10 +1,27 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import {LOGIN} from '../utils/mutations';
-
+import { LOGIN } from '../utils/mutations';
+import {
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+  Stack,
+  Image,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  useColorModeValue
+} from '@chakra-ui/react';
 import Auth from '../utils/auth';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const Login = (props) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
 
@@ -40,40 +57,60 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Login</h4>
-          <div className="card-body">
-            <form onSubmit={handleFormSubmit}>
-              <input
-                className="form-input"
-                placeholder="Your email"
-                name="email"
-                type="email"
-                id="email"
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <input
-                className="form-input"
-                placeholder="******"
-                name="password"
-                type="password"
-                id="password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button className="btn d-block w-100" type="submit">
-                Submit
-              </button>
-            </form>
-
-            {error && <div>Login failed</div>}
-          </div>
-        </div>
-      </div>
-    </main>
+    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+      <Flex p={8} flex={1} align={'center'} justify={'center'}>
+        <Stack spacing={4} w={'full'} maxW={'md'}>
+          <Heading fontSize={'2xl'}>Sign in to your account</Heading>
+          <FormControl id="email" isRequired>
+            <FormLabel>Email address</FormLabel>
+            <Input 
+              placeholder="email@email.com"
+              name="drEmail"
+              type="drEmail"
+              id="drEmail"
+              onChange={handleChange} />
+          </FormControl>
+          <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input type={showPassword ? 'text' : 'password'}
+                    name="drPassword"
+                    id="drPassword" />
+                  <InputRightElement h={'full'}>
+                    <Button
+                      variant={'ghost'}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }>
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+          <Stack spacing={6}>
+            <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              align={'start'}
+              justify={'space-between'}>
+              <Checkbox>Remember me</Checkbox>
+              <Link color={'blue.500'} href='/forgotpassword'>Forgot password?</Link>
+            </Stack>
+            <Button colorScheme={'blue'} variant={'solid'}>
+              Sign in
+            </Button>
+          </Stack>
+        </Stack>
+      </Flex>
+      <Flex flex={1}>
+        <Image
+          alt={'Login Image'}
+          objectFit={'cover'}
+          src={
+            'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80'
+          }
+        />
+      </Flex>
+    </Stack>
   );
 };
 

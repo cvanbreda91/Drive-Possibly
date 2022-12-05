@@ -1,6 +1,6 @@
 import React from 'react';
-import { 
-  ChakraProvider, 
+import {
+  ChakraProvider,
   Box,
   Flex,
   Avatar,
@@ -34,6 +34,7 @@ import NoMatch from './pages/NoMatch';
 import PatientNotes from './pages/PatientNotes';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
 import DoctorPage from './pages/DoctorsPage'
 
 
@@ -59,47 +60,51 @@ const client = new ApolloClient({
 function App() {
   return (
     <ChakraProvider>
-    <ApolloProvider client={client}>
-      <Router>
-        <Nav />
-        <div className="flex-column justify-flex-start min-100-vh">
-          <div className="container">
+      <ApolloProvider client={client}>
+        <Router>
+          <Nav />
+          <div className="flex-column justify-flex-start min-100-vh">
+            <div className="container">
 
-            <Routes>
-              <Route
-                path="/"
-                element={<Home />}
-              />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route
-                path="/signup"
-                element={<Signup />}
-              />
-              <Route
-                path="/profile"
-                element={<Profile />}
-              />
-              <Route
-                path="/patientnotes/:id"
-                element={<PatientNotes />}
-              />
-              <Route
-                path="*"
-                element={<NoMatch />}
-              />
-              <Route 
-              path='/Doctor/1'
-              element={<DoctorPage />} />
-            </Routes>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Home />}
+                />
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
+                <Route
+                  path="/forgotpassword"
+                  element={<ForgotPassword />}
+                />
+                <Route
+                  path="/signup"
+                  element={<Signup />}
+                />
+                <Route
+                  path="/profile"
+                  element={<Profile />}
+                />
+                <Route
+                  path="/patientnotes/:id"
+                  element={<PatientNotes />}
+                />
+                <Route
+                  path="*"
+                  element={<NoMatch />}
+                />
+                <Route
+                  path='/Doctor/1'
+                  element={<DoctorPage />} />
+              </Routes>
 
+            </div>
+            <Footer></Footer>
           </div>
-          <Footer></Footer>
-        </div>
-      </Router>
-    </ApolloProvider>
+        </Router>
+      </ApolloProvider>
     </ChakraProvider>
   );
 }
