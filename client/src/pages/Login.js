@@ -93,7 +93,7 @@ const Login = (props) => {
               align={'start'}
               justify={'space-between'}>
               <Checkbox>Remember me</Checkbox>
-              <Link color={'blue.500'} href='/forgotpassword'>Forgot password?</Link>
+              <Link to="/forgotpassword" color={'blue.400'}>Forgot Password</Link>
             </Stack>
             <Button colorScheme={'blue'} variant={'solid'}>
               Sign in
