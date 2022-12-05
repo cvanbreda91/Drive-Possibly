@@ -51,7 +51,8 @@ function Nav() {
               color='#FEFEE3'
               _hover={{
                 bg: '#53687E',
-                transform: 'scale(1.2)',
+                boxShadow: 'xl',
+                transform: 'scale(1.2)'
               }}
             >
               <BreadcrumbItem>
@@ -71,7 +72,8 @@ function Nav() {
               color='#FEFEE3'
               _hover={{
                 bg: '#53687E',
-                transform: 'scale(1.2)'
+                transform: 'scale(1.2)',
+                boxShadow: 'xl'
               }}
             >
               <BreadcrumbItem>
@@ -85,7 +87,7 @@ function Nav() {
   }
   return (
     <>
-      <Box bg="#52AD9C" px={10}>
+      <Box bg="#52AD9C" px={10} zIndex="100000">
         <Flex h='100px' alignItems={'left'} justifyContent={'space-between'}>
           <Box as={Link} to='/'>
             <HStack>
@@ -111,6 +113,7 @@ function Nav() {
               <Button onClick={toggleColorMode} m={8} bg='#53687E' color='#FEFEE3' _hover={{
                 bg: '#53687E',
                 transform: 'scale(1.2)',
+                boxShadow: 'xl'
               }}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
