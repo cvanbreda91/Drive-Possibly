@@ -32,31 +32,31 @@ export const QUERY_DRUGS = gql`
 //   }
 // `;
 
-// export const QUERY_DOCTOR = gql`
-//   {
-//     doctor {
-//         drFirstName
-//         drLastName
-//         drEmail
-//         patients {
-//           _id
-//           patientFirstName
-//           patientLastName
-//           patientEmail
-//           drNotes
-//           appointmentNotes
-//           appointments
-//           purchaseDate}
-//         appointments {
-//           _id
-//           appointmentDate
-//           doctor
-//           patient
-//           location
-//         }
-//       }
-//     }
-// `;
+export const QUERY_DOCTOR = gql`
+  {
+    doctor {
+        drFirstName
+        drLastName
+        drEmail
+        patients {
+          _id
+          patientFirstName
+          patientLastName
+          patientEmail
+          drNotes
+          appointmentNotes
+          appointments
+          purchaseDate}
+        appointments {
+          _id
+          appointmentDate
+          doctor
+          patient
+          location
+        }
+      }
+    }
+`;
 
 // export const QUERY_PATIENT = gql`
 //   {

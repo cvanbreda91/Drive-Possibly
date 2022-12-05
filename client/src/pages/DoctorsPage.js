@@ -1,6 +1,12 @@
 import React from "react";
-
+import { useQuery } from "react-apollo";
+import { QUERY_DOCTOR } from "../utils/queries";
 const DoctorPage = () => {
+  //const { id: DoctorId } =  //useParams()
+  const doctorId ='638d20a9b2097689c8698e02'
+  const { loading, data } = useQuery(QUERY_DOCTOR, {
+    variables: { id: doctorId },
+  });
   return (
     <div className="drDashboardContainer">
       <div className="pList">
@@ -9,10 +15,7 @@ const DoctorPage = () => {
           <h3>John Doe</h3>
           <h4>Appt Time- 2:30</h4>
         </div>
-        <div className="pName">
-          <h3>Tom Watt</h3>
-          <h4>Appt Time- 2:30</h4>
-        </div>
+
       </div>
       <div className="pView">
         <div className="pDetail">
