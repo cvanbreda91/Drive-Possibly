@@ -20,7 +20,7 @@ import {
 import Auth from '../utils/auth';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-const Login = (props) => {
+const ForgotPassword = (props) => {
     const [showPassword, setShowPassword] = useState(false);
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [login, { error }] = useMutation(LOGIN);
@@ -96,4 +96,4 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default ForgotPassword;

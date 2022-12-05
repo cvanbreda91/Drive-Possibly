@@ -35,6 +35,7 @@ import PatientNotes from './pages/PatientNotes';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
+import AddPatient from './pages/AddPatient';
 import DoctorPage from './pages/DoctorsPage'
 
 
@@ -82,6 +83,10 @@ function App() {
                 <Route
                   path="/signup"
                   element={<Signup />}
+                />
+                <Route
+                  path="/addpatient"
+                  element={<AddPatient />}
                 />
                 <Route
                   path="/profile"
