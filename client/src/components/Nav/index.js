@@ -26,11 +26,51 @@ function Nav() {
     if (Auth.loggedIn()) {
       return (
         <Breadcrumb separator=''>
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to='/orderHistory'>Order History</BreadcrumbLink>
+                    <BreadcrumbItem>
+          <Box
+              m={8}
+              as='button'
+              height='40px'
+              lineHeight='1.2'
+              transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+              px='25px'
+              borderRadius='5px'
+              fontSize='25px'
+              bg='#53687E'
+              color='#FEFEE3'
+              _hover={{
+                bg: '#53687E',
+                transform: 'scale(1.2)',
+                boxShadow: 'xl'
+              }}
+            >
+              <BreadcrumbItem>
+              <BreadcrumbLink as={Link} to='/doctor' >Doctor Dashboard</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Box>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to='/' onClick={() => Auth.logout()}>Logout</BreadcrumbLink>
+          <Box
+              m={8}
+              as='button'
+              height='40px'
+              lineHeight='1.2'
+              transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+              px='25px'
+              borderRadius='5px'
+              fontSize='25px'
+              bg='#53687E'
+              color='#FEFEE3'
+              _hover={{
+                bg: '#53687E',
+                transform: 'scale(1.2)',
+                boxShadow: 'xl'
+              }}
+            >
+              <BreadcrumbItem>
+              <BreadcrumbLink as={Link} to='/' onClick={() => Auth.logout()}>Logout</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Box>
           </BreadcrumbItem>
         </Breadcrumb>
       );

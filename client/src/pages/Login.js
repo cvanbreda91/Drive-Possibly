@@ -7,17 +7,13 @@ import {
   Button,
   Checkbox,
   Flex,
-  FormControl,
-  FormLabel,
   Heading,
   Input,
   Stack,
   Image,
-  InputGroup,
   HStack,
   Text,
   Box,
-  InputRightElement,
   useColorModeValue
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
