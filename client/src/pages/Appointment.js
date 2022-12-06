@@ -8,7 +8,7 @@ const Appoinment = () =>{
         nylas.scheduler.show({
           auth: {
             // Account <ACCESS_TOKEN> with active calendar scope
-            accessToken: "<ACCESS_TOKEN>", 
+            accessToken: "<i8kppWbT94OIXpI3cZ5wuHlENHiRXW>", 
           },
           style: {
             // Style the Schedule Editor
@@ -17,7 +17,7 @@ const Appoinment = () =>{
           },
           defaults: {
             event: {
-              title: '30-min Coffee Meeting',
+              title: '30-min Meeting',
               duration: 30,
             },
           },
