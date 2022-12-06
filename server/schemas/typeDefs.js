@@ -54,7 +54,7 @@ type Auth {
 type Query{
     me: Doctor
     doctors:[Doctor]
-    doctor(drEmail: String!): Doctor
+    doctor(_id: ID): Doctor
     patient:[Patient]
     drugs:[Drug]
     order:[Order]
@@ -72,7 +72,7 @@ type Mutation{
     updateDrug(_id: ID!, inventory: Int!): Drug
     addOrder(drug: [ID]!, patient:ID!): Order
     updateDoctor(drFirstName: String, drLastName: String, drEmail: String, password: String): Doctor
-
+    addPatientToDoctor(patient:ID):Patient
 }
 
 `

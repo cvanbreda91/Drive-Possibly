@@ -1,12 +1,21 @@
-import React from "react";
+import React,{useEffect}from "react";
+import { idbPromise } from "../utils/helpers";
+import { useStoreContext } from '../utils/GlobalState';
+import { useQuery } from "@apollo/client";
 import PatientList from "../components/PatientList";
 import auth from '../utils/auth'
+import { QUERY_DOCTOR } from "../utils/queries";
+import { UPDATE_DOCTOR } from "../utils/actions";
 const DoctorPage = () => {
-  console.log(auth.getToken());
 
+  const user = auth.getProfile();
+
+  const{ loading ,data } =useQuery(QUERY_DOCTOR,{variables:{id:user.data._id}})
+  console.log(data)
   return (
     <div className="drDashboardContainer">
-          <PatientList />
+      <h1> Dr. {data.doctor.drFirstName} {data.doctor.drFirstName}</h1>
+          <PatientList patients={data.doctor.patients}/>
       <div className="pView">
         <div className="pDetail">
           <h2 style={{ color: "#AC6666" }}>John Doe</h2>

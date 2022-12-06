@@ -88,7 +88,7 @@ function App() {
                       element={<NoMatch />}
                     />
                     <Route
-                      path='/doctor'
+                      path='/myAccount'
                       element={<DoctorPage />} />
                     <Route
                       path='/appointment'

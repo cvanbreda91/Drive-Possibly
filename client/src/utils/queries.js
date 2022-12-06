@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql,useQuery  } from '@apollo/client';
 
 export const QUERY_DRUGS = gql`
   query getDrugs($dinNumber: String) {
@@ -33,29 +33,23 @@ export const QUERY_DRUGS = gql`
 // `;
 
 export const QUERY_DOCTOR = gql`
-  {
-    doctor {
-        drFirstName
-        drLastName
-        drEmail
-        patients {
-          _id
-          patientFirstName
-          patientLastName
-          patientEmail
-          drNotes
-          appointmentNotes
-          appointments
-          purchaseDate}
-        appointments {
-          _id
-          appointmentDate
-          doctor
-          patient
-          location
-        }
-      }
+query user($id: ID!) {
+  doctor(_id: $id) {
+    _id
+    drEmail
+    drFirstName
+    drLastName
+    drPassword
+    patients {
+      _id
+      appointmentNotes
+      drNotes
+      patientFirstName
+      patientLastName
+      patientPassword
     }
+  }
+}
 `;
 
 // export const QUERY_PATIENT = gql`

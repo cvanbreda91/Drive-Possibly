@@ -27,6 +27,16 @@ const resolvers = {
         patient: async () => {
             return Patient.find();
         },
+        doctor: async (parent, {_id}) => {
+                const doctorData = await Doctor.findOne({ _id:_id  })
+                    .select('-__v -drPassword')
+                    .populate('patients')
+                    .populate('appointments');
+
+                return doctorData;
+            }
+
+        
     },
     Mutation: {
         addDoctor: async (parent, args) => {
@@ -34,6 +44,9 @@ const resolvers = {
             const token = signToken(doctor);
 
             return { token, doctor };
+        },
+        addPatientToDoctor:async(parent,args)=>{
+            return await Doctor.findByIdAndUpdate(context.doctor.patients, args, { new: true });
         },
         addOrder: async (parent, { drugs }, context) => {
             console.log(context);
