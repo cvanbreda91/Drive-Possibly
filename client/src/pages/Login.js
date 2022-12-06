@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../utils/mutations';
+import { LOGIN_DOCTOR } from '../utils/mutations';
 import {
   Button,
   Checkbox,
@@ -23,7 +23,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN);
+  const [login, { error }] = useMutation(LOGIN_DOCTOR);
 
   // update state based on form input changes
   const handleChange = (event) => {

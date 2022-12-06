@@ -6,6 +6,8 @@ type Doctor{
     drFirstName:String
     drLastName:String
     drEmail:String
+    drPassword:String
+    patients:[Patient]
     
 }
 type Appointment{
@@ -45,12 +47,14 @@ type Order{
 
 type Auth {
     token: ID!
-    doctor:Doctor
+    doctor: Doctor
 }
 
 
 type Query{
+    me: Doctor
     doctors:[Doctor]
+    doctor(drEmail: String!): Doctor
     patient:[Patient]
     drugs:[Drug]
     order:[Order]
@@ -58,7 +62,7 @@ type Query{
 
 type Mutation{
     login(drEmail: String!, drPassword: String!): Auth
-    addDoctor(drEmail: String!, drPassword: String!, drFirstName: String!, drLastName: String!): Doctor
+    addDoctor(drEmail: String!, drPassword: String!, drFirstName: String!, drLastName: String!): Auth
     addPatient(patientFirstName: String!, patientLastName: String! patientEmail: String!, patientPassword: String, drNotes: String,  appointmentNotes: String, appointments: String): Patient
     addNote(noteText: String!): Patient
     removeNote(noteText: String!): Patient
