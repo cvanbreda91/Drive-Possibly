@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import Auth from '../utils/auth';
 import { LOGIN_DOCTOR } from '../utils/mutations';
 import {
   Button,
@@ -9,15 +11,15 @@ import {
   FormLabel,
   Heading,
   Input,
-  Link,
   Stack,
   Image,
   InputGroup,
   HStack,
+  Text,
+  Box,
   InputRightElement,
   useColorModeValue
 } from '@chakra-ui/react';
-import Auth from '../utils/auth';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const Login = (props) => {
@@ -59,74 +61,97 @@ const Login = (props) => {
   return (
     <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
       <Flex p={8} flex={1} align={'center'} justify={'center'}>
-        <Stack spacing={4} w={'full'} maxW={'md'}>
-          <Heading fontSize={'2xl'}>Sign in to your account</Heading>
-          {/* <FormControl id="email" isRequired>
-            <FormLabel>Email address</FormLabel>
-            <Input 
-              placeholder="email@email.com"
-              name="drEmail"
-              type="drEmail"
-              id="drEmail"
-              onChange={handleChange} />
-          </FormControl> */}
-          {/* <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
-                <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'}
-                    name="drPassword"
-                    id="drPassword" />
-                  <InputRightElement h={'full'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() =>
-                        setShowPassword((showPassword) => !showPassword)
-                      }>
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl> */}
-          {/* <Stack spacing={6}>
-            <Stack
-              direction={{ base: 'column', sm: 'row' }}
-              align={'start'}
-              justify={'space-between'}>
-              <Checkbox>Remember me</Checkbox>
-              <Link to="/forgotpassword" color={'blue.400'}>Forgot Password</Link>
+        <Stack spacing={4} w={'full'} maxW={'sm'}>
+          <Stack
+            bg={'gray.50'}
+            rounded={'xl'}
+            p={{ base: 4, sm: 6, md: 8 }}
+            spacing={{ base: 8 }}
+            maxW={{ lg: 'lg' }}>
+            <Stack spacing={4}>
+              <Heading
+                color={'gray.800'}
+                lineHeight={1.1}
+                fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
+                Sign In
+                <Text
+                  as={'span'}
+                  bg="#5CC8FF"
+                  bgClip="text">
+                  !
+                </Text>
+              </Heading>
             </Stack>
-            <Button colorScheme={'blue'} variant={'solid'}>
-              Sign in
-            </Button>
-          </Stack> */}
-           <form onSubmit={handleFormSubmit}>
-       
-        
-        <div className="flex-row space-between my-2">
-          <label htmlFor="drEmail">Email:</label>
-          <input
-            placeholder="youremail@test.com"
-            name="drEmail"
-            type="drEmail"
-            id="drEmail"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="drPassword">Password:</label>
-          <input
-            placeholder="******"
-            name="drPassword"
-            type="drPassword"
-            id="drPassword"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row flex-end">
-          <button type="submit" >Submit</button>
-        </div>
-      </form>
-      {error && <div>Sign up failed</div>}
+            <Flex>
+              <Box
+                rounded={'lg'}
+                bg={useColorModeValue('white', 'gray.700')}
+                boxShadow={'lg'}
+                p={8}>
+                <Box>
+                  <form onSubmit={handleFormSubmit}>
+                    <Box mt={5}>
+                      <label htmlFor="drEmail">Email:</label>
+                      <Input
+                        color='gray.500'
+                        bg={'gray.100'}
+                        placeholder="youremail@test.com"
+                        name="drEmail"
+                        type="drEmail"
+                        id="drEmail"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                    <Box mt={5}>
+                      <label htmlFor="drPassword">Password:</label>
+                      <HStack>
+                        <Input
+                          color='gray.500'
+                          bg={'gray.100'}
+                          placeholder="******"
+                          name="drPassword"
+                          type={showPassword ? 'text' : 'password'}
+                          id="drPassword"
+                          onChange={handleChange}
+                        />
+                        <Button
+                          variant={'ghost'}
+                          onClick={() =>
+                            setShowPassword((showPassword) => !showPassword)
+                          }>
+                          {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                        </Button>
+                      </HStack>
+                    </Box>
+                    <Box>
+                      <Checkbox>Remember me</Checkbox>
+                    </Box>
+                    <Box mt={5} align='center'>
+                      <Link to="/forgotpassword">Forgot password?</Link>
+                    </Box>
+                    <Box>
+                      <Button
+                        type="submit"
+                        fontFamily={'heading'}
+                        mt={8}
+                        w={'full'}
+                        bg="#5CC8FF"
+                        color={'white'}
+                        _hover={{
+                          transform: 'scale(1.2)',
+                          boxShadow: 'xl',
+                        }}>
+                        Submit</Button>
+                    </Box>
+                  </form>
+                  {error && <div>Sign up failed</div>}
+                </Box>
+                <Box mt={5}>
+                  No Account? <Link to="/signup">Sign-up now!</Link>
+                </Box>
+              </Box>
+            </Flex>
+          </Stack>
         </Stack>
       </Flex>
       <Flex flex={1}>

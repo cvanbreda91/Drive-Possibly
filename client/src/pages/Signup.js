@@ -4,8 +4,6 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_DOCTOR } from '../utils/mutations';
 import {
-  InputGroup,
-  InputRightElement,
   Box,
   Flex,
   Stack,
@@ -19,8 +17,6 @@ import {
   Avatar,
   AvatarGroup,
   useBreakpointValue,
-  FormControl,
-  FormLabel,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -52,6 +48,7 @@ function Signup(props) {
   const [formState, setFormState] = useState({ drEmail: '', drPassword: '' });
   const [addDoctor, { error }] = useMutation(ADD_DOCTOR);
 
+  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const mutationResponse = await addDoctor({
@@ -66,6 +63,7 @@ function Signup(props) {
     Auth.login(token);
   };
 
+  // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -225,15 +223,15 @@ function Signup(props) {
                   <Box mt={5}>
                     <label htmlFor="drPassword">Password:</label>
                     <HStack>
-                    <Input
-                      color='gray.500'
-                      bg={'gray.100'}
-                      placeholder="******"
-                      name="drPassword"
-                      type={showPassword ? 'text' : 'password'}
-                      id="drPassword"
-                      onChange={handleChange}
-                    />
+                      <Input
+                        color='gray.500'
+                        bg={'gray.100'}
+                        placeholder="******"
+                        name="drPassword"
+                        type={showPassword ? 'text' : 'password'}
+                        id="drPassword"
+                        onChange={handleChange}
+                      />
                       <Button
                         variant={'ghost'}
                         onClick={() =>
@@ -241,7 +239,7 @@ function Signup(props) {
                         }>
                         {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                       </Button>
-                      </HStack>
+                    </HStack>
                   </Box>
                   <Box>
                     <Button
@@ -259,6 +257,9 @@ function Signup(props) {
                   </Box>
                 </form>
                 {error && <div>Sign up failed</div>}
+                <Box mt={5}>
+                  Already have an account? <Link to="/login">Sign-in now!</Link>
+                </Box>
               </Box>
             </Box>
           </Flex>
