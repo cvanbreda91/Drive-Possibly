@@ -4,12 +4,13 @@ import { LOGIN_DOCTOR } from '../utils/mutations';
 import {
     Button,
     Checkbox,
+    Text,
+    Box,
     Flex,
     FormControl,
     FormLabel,
     Heading,
     Input,
-    Link,
     Stack,
     Image,
     InputGroup,
@@ -18,9 +19,9 @@ import {
     useColorModeValue
 } from '@chakra-ui/react';
 import Auth from '../utils/auth';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 
-const Login = (props) => {
+const ForgotPassword = (props) => {
     const [showPassword, setShowPassword] = useState(false);
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [login, { error }] = useMutation(LOGIN_DOCTOR);
@@ -59,27 +60,69 @@ const Login = (props) => {
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
-                <Stack spacing={4} w={'full'} maxW={'md'}>
-                    <Heading fontSize={'2xl'}>Forgot Password?</Heading>
-                    <FormControl id="email" isRequired>
-                        <FormLabel>Email address</FormLabel>
-                        <Input
-                            placeholder="email@email.com"
-                            name="drEmail"
-                            type="drEmail"
-                            id="drEmail"
-                            onChange={handleChange} />
-                    </FormControl>
-
-                    <Stack spacing={6}>
-                        <Button
-                            bg={'blue.400'}
-                            color={'white'}
-                            _hover={{
-                                bg: 'blue.500',
-                            }}>
-                            Request Reset
-                        </Button>
+                <Stack spacing={4} w={'full'} maxW={'sm'}>
+                    <Stack
+                        bg={'gray.50'}
+                        rounded={'xl'}
+                        p={{ base: 4, sm: 6, md: 8 }}
+                        spacing={{ base: 8 }}
+                        maxW={{ lg: 'lg' }}>
+                        <Stack spacing={4}>
+                            <Heading
+                                color={'gray.800'}
+                                lineHeight={1.1}
+                                fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
+                                Forgot Password
+                                <Text
+                                    as={'span'}
+                                    bg="#5CC8FF"
+                                    bgClip="text">
+                                    !
+                                </Text>
+                            </Heading>
+                        </Stack>
+                        <Flex>
+                            <Box
+                                rounded={'lg'}
+                                bg={useColorModeValue('white', 'gray.700')}
+                                boxShadow={'lg'}
+                                p={8}>
+                                <Box>
+                                    <form onSubmit={handleFormSubmit}>
+                                        <Box mt={5}>
+                                            <label htmlFor="drEmail">Email:</label>
+                                            <Input
+                                                color='gray.500'
+                                                bg={'gray.100'}
+                                                placeholder="youremail@test.com"
+                                                name="drEmail"
+                                                type="drEmail"
+                                                id="drEmail"
+                                                onChange={handleChange}
+                                            />
+                                        </Box>
+                                        <Box>
+                                            <Button
+                                                type="submit"
+                                                fontFamily={'heading'}
+                                                mt={8}
+                                                w={'full'}
+                                                bg="#5CC8FF"
+                                                color={'white'}
+                                                _hover={{
+                                                    transform: 'scale(1.2)',
+                                                    boxShadow: 'xl',
+                                                }}>
+                                                Reset Password!</Button>
+                                        </Box>
+                                    </form>
+                                    {error && <div>Email not found</div>}
+                                </Box>
+                                <Box mt={5} align='center'>
+                                    <Link to="/login" align="center">Back to Sign In!</Link>
+                                </Box>
+                            </Box>
+                        </Flex>
                     </Stack>
                 </Stack>
             </Flex>
@@ -96,4 +139,4 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default ForgotPassword;

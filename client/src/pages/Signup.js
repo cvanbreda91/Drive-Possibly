@@ -253,11 +253,11 @@ function Signup(props) {
                         transform: 'scale(1.2)',
                         boxShadow: 'xl',
                       }}>
-                      Submit</Button>
+                      Sign up!</Button>
                   </Box>
                 </form>
                 {error && <div>Sign up failed</div>}
-                <Box mt={5}>
+                <Box mt={5} align='center'>
                   Already have an account? <Link to="/login">Sign-in now!</Link>
                 </Box>
               </Box>

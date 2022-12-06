@@ -137,12 +137,12 @@ const Login = (props) => {
                           transform: 'scale(1.2)',
                           boxShadow: 'xl',
                         }}>
-                        Submit</Button>
+                        Sign in!</Button>
                     </Box>
                   </form>
                   {error && <div>Sign up failed</div>}
                 </Box>
-                <Box mt={5}>
+                <Box mt={5} align='center'>
                   No Account? <Link to="/signup">Sign-up now!</Link>
                 </Box>
               </Box>
