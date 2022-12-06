@@ -4,12 +4,15 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_DOCTOR } from '../utils/mutations';
 import {
+  InputGroup,
+  InputRightElement,
   Box,
   Flex,
   Stack,
   Heading,
   Text,
   Container,
+  HStack,
   Input,
   Button,
   SimpleGrid,
@@ -18,9 +21,6 @@ import {
   useBreakpointValue,
   FormControl,
   FormLabel,
-  InputGroup,
-  HStack,
-  InputRightElement,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -49,8 +49,8 @@ const avatars = [
 ];
 function Signup(props) {
   const [showPassword, setShowPassword] = useState(false);
-  const [formState, setFormState] = useState({ drFirstName: " ", drLastName: " ", drEmail: '', drPassword: '' });
-  const [addDoctor] = useMutation(ADD_DOCTOR);
+  const [formState, setFormState] = useState({ drEmail: '', drPassword: '' });
+  const [addDoctor, { error }] = useMutation(ADD_DOCTOR);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -176,72 +176,60 @@ function Signup(props) {
               </Text>
             </Heading>
           </Stack>
-          <Box
-            rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
-            boxShadow={'lg'}
-            p={8}>
-            <Stack spacing={4}>
-              <HStack>
-                <Box>
-                  <FormControl id="firstName" isRequired>
-                    <FormLabel>First Name</FormLabel>
-                    <Input
-                      name="drFirstName"
-                      type="drFirstName"
-                      id="drFirstName" />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl id="lastName" isRequired>
-                    <FormLabel>Last Name</FormLabel>
-                    <Input
-                      name="drLastName"
-                      type="drLastName"
-                      id="drLastName" />
-                  </FormControl>
-                </Box>
-              </HStack>
-              <FormControl id="email" isRequired>
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" />
-              </FormControl>
-              <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
-                <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'}
-                    name="drPassword"
-                    id="drPassword" />
-                  <InputRightElement h={'full'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() =>
-                        setShowPassword((showPassword) => !showPassword)
-                      }>
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-              <Stack spacing={10} pt={2}>
-                <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={'blue.400'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'blue.500',
-                  }}>
-                  Sign up
-                </Button>
-              </Stack>
-              <Stack pt={6}>
-                <Text align={'center'}>
-                  Already a user? <Link to='/login' color={'blue.400'}>Login</Link>
-                </Text>
-              </Stack>
-            </Stack>
-          </Box>
+          <Flex>
+            <Box
+              rounded={'lg'}
+              bg={useColorModeValue('white', 'gray.700')}
+              boxShadow={'lg'}
+              p={8}>
+            <form onSubmit={handleFormSubmit}>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drFirstName">First Name:</label>
+          <input
+            placeholder="First"
+            name="drFirstName"
+            type="drFirstName"
+            id="drFirstName"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drLastName">Last Name:</label>
+          <input
+            placeholder="Last"
+            name="drLastName"
+            type="drLastName"
+            id="drLastName"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drEmail">Email:</label>
+          <input
+            placeholder="youremail@test.com"
+            name="drEmail"
+            type="drEmail"
+            id="drEmail"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drPassword">Password:</label>
+          <input
+            placeholder="******"
+            name="drPassword"
+            type="drPassword"
+            id="drPassword"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row flex-end">
+          <button type="submit" >Submit</button>
+        </div>
+      </form>
+      {error && <div>Sign up failed</div>}
+            </Box>
+          </Flex>
         </Stack>
       </Container>
     </Box>

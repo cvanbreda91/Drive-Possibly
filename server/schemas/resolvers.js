@@ -3,8 +3,23 @@ const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
+        me: async (parent, args) => {
+            if (context.doctor) {
+                const doctorData = await Doctor.findOne({ _id: context.doctor._id })
+                    .select('-__v -drPassword')
+                    .populate('patients')
+                    .populate('appointments');
+
+                return doctorData;
+            }
+
+            throw new AuthenticationError('Not logged in');
+        },
         doctors: async () => {
-            return Doctor.find().sort();
+            return Doctor.find()
+                .select('-__v -drPassword')
+                .populate('patients')
+                .populate('appointments');
         },
         drugs: async () => {
             return Drug.find();
@@ -47,29 +62,29 @@ const resolvers = {
         addDrug: async (parent, args, context) => {
             const drug = await Drug.create(args);
 
-            return drug ;
+            return drug;
         },
         addPatient: async (parent, args, context) => {
             const patient = await Patient.create(args);
 
-            return patient ;
+            return patient;
         },
         addNote: async () => {
 
         },
 
-        login: async (parent, { email, password }) => {
-            const doctor = await Doctor.findOne({ email });
+        login: async (parent, { drEmail, drPassword }) => {
+            const doctor = await Doctor.findOne({ drEmail });
 
             if (!doctor) {
                 throw new AuthenticationError('Incorrect credentials');
             }
 
-            // const correctPw = await doctor.isCorrectPassword(password);
+            const correctPw = await doctor.isCorrectPassword(drPassword);
 
-            // if (!correctPw) {
-            //     throw new AuthenticationError('Incorrect credentials');
-            // }
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
 
             const token = signToken(doctor);
 

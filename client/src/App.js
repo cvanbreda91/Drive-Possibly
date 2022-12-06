@@ -1,23 +1,11 @@
 import React from 'react';
 import {
   ChakraProvider,
-  Box,
-  Flex,
-  Avatar,
-  Link,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
-  useColorModeValue,
-  Stack,
-  useColorMode,
-  Center
+  ThemeProvider,
+  theme,
+  ColorModeProvider,
+  CSSReset
 } from '@chakra-ui/react'
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
@@ -37,6 +25,7 @@ import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import AddPatient from './pages/AddPatient';
 import DoctorPage from './pages/DoctorsPage'
+import Appoinment from './pages/Appointment';
 
 
 const httpLink = createHttpLink({
@@ -54,18 +43,21 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 
 function App() {
   return (
     <ChakraProvider>
-      <ApolloProvider client={client}>
-        <Router>
-          <Nav />
-          <div className="flex-column justify-flex-start min-100-vh">
-            <div className="container">
+      <ThemeProvider theme={theme}>
+        <ColorModeProvider>
+          <CSSReset />
+          <ApolloProvider client={client}>
+            <Router>
+              <Nav />
+              <div className="flex-column justify-flex-start min-100-vh">
+                <div className="container">
 
               <Routes>
                 <Route
@@ -85,10 +77,6 @@ function App() {
                   element={<Signup />}
                 />
                 <Route
-                  path="/addpatient"
-                  element={<AddPatient />}
-                />
-                <Route
                   path="/profile"
                   element={<Profile />}
                 />
@@ -105,11 +93,13 @@ function App() {
                   element={<DoctorPage />} />
               </Routes>
 
-            </div>
-            <Footer></Footer>
-          </div>
-        </Router>
-      </ApolloProvider>
+                </div>
+                <Footer />
+              </div>
+            </Router>
+          </ApolloProvider>
+        </ColorModeProvider>
+      </ThemeProvider>
     </ChakraProvider>
   );
 }
