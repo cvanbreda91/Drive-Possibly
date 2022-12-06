@@ -20,6 +20,7 @@ const DoctorPage = () => {
           </div>
           <div className="pAppointment">
             <h2>Appointment Details</h2>
+            <appointmentView />
           </div>
         </div>
         <div className="pShoptool">

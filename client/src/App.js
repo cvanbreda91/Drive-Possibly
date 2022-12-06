@@ -24,6 +24,7 @@ import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import DoctorPage from './pages/DoctorsPage'
+import Appoinment from './pages/Appointment';
 
 
 const httpLink = createHttpLink({
@@ -89,6 +90,9 @@ function App() {
                     <Route
                       path='/doctor'
                       element={<DoctorPage />} />
+                    <Route
+                      path='/appointment'
+                      element={<Appoinment />} />
                   </Routes>
 
                 </div>
