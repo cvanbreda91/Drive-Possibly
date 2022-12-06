@@ -182,52 +182,84 @@ function Signup(props) {
               bg={useColorModeValue('white', 'gray.700')}
               boxShadow={'lg'}
               p={8}>
-            <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="drFirstName">First Name:</label>
-          <input
-            placeholder="First"
-            name="drFirstName"
-            type="drFirstName"
-            id="drFirstName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="drLastName">Last Name:</label>
-          <input
-            placeholder="Last"
-            name="drLastName"
-            type="drLastName"
-            id="drLastName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="drEmail">Email:</label>
-          <input
-            placeholder="youremail@test.com"
-            name="drEmail"
-            type="drEmail"
-            id="drEmail"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="drPassword">Password:</label>
-          <input
-            placeholder="******"
-            name="drPassword"
-            type="drPassword"
-            id="drPassword"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row flex-end">
-          <button type="submit" >Submit</button>
-        </div>
-      </form>
-      {error && <div>Sign up failed</div>}
+              <Box>
+                <form onSubmit={handleFormSubmit}>
+                  <HStack>
+                    <Box>
+                      <label htmlFor="drFirstName">First Name:</label>
+                      <Input
+                        color='gray.500'
+                        bg={'gray.100'}
+                        placeholder="First"
+                        name="drFirstName"
+                        type="drFirstName"
+                        id="drFirstName"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                    <Box>
+                      <label htmlFor="drLastName">Last Name:</label>
+                      <Input
+                        color='gray.500'
+                        bg={'gray.100'}
+                        placeholder="Last"
+                        name="drLastName"
+                        type="drLastName"
+                        id="drLastName"
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </HStack>
+                  <Box mt={5}>
+                    <label htmlFor="drEmail">Email:</label>
+                    <Input
+                      color='gray.500'
+                      bg={'gray.100'}
+                      placeholder="youremail@test.com"
+                      name="drEmail"
+                      type="drEmail"
+                      id="drEmail"
+                      onChange={handleChange}
+                    />
+                  </Box>
+                  <Box mt={5}>
+                    <label htmlFor="drPassword">Password:</label>
+                    <HStack>
+                    <Input
+                      color='gray.500'
+                      bg={'gray.100'}
+                      placeholder="******"
+                      name="drPassword"
+                      type={showPassword ? 'text' : 'password'}
+                      id="drPassword"
+                      onChange={handleChange}
+                    />
+                      <Button
+                        variant={'ghost'}
+                        onClick={() =>
+                          setShowPassword((showPassword) => !showPassword)
+                        }>
+                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      </Button>
+                      </HStack>
+                  </Box>
+                  <Box>
+                    <Button
+                      type="submit"
+                      fontFamily={'heading'}
+                      mt={8}
+                      w={'full'}
+                      bg="#5CC8FF"
+                      color={'white'}
+                      _hover={{
+                        transform: 'scale(1.2)',
+                        boxShadow: 'xl',
+                      }}>
+                      Submit</Button>
+                  </Box>
+                </form>
+                {error && <div>Sign up failed</div>}
+              </Box>
             </Box>
           </Flex>
         </Stack>
