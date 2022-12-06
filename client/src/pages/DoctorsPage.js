@@ -1,5 +1,6 @@
 import React from "react";
 import PatientList from "../components/PatientList";
+import AddPatient from "../components/AddPatient";
 import auth from '../utils/auth'
 const DoctorPage = () => {
   console.log(auth.getToken());
