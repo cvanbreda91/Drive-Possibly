@@ -61,7 +61,7 @@ const Login = (props) => {
       <Flex p={8} flex={1} align={'center'} justify={'center'}>
         <Stack spacing={4} w={'full'} maxW={'md'}>
           <Heading fontSize={'2xl'}>Sign in to your account</Heading>
-          <FormControl id="email" isRequired>
+          {/* <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
             <Input 
               placeholder="email@email.com"
@@ -69,8 +69,8 @@ const Login = (props) => {
               type="drEmail"
               id="drEmail"
               onChange={handleChange} />
-          </FormControl>
-          <FormControl id="password" isRequired>
+          </FormControl> */}
+          {/* <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input type={showPassword ? 'text' : 'password'}
@@ -86,8 +86,8 @@ const Login = (props) => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-              </FormControl>
-          <Stack spacing={6}>
+              </FormControl> */}
+          {/* <Stack spacing={6}>
             <Stack
               direction={{ base: 'column', sm: 'row' }}
               align={'start'}
@@ -98,7 +98,35 @@ const Login = (props) => {
             <Button colorScheme={'blue'} variant={'solid'}>
               Sign in
             </Button>
-          </Stack>
+          </Stack> */}
+           <form onSubmit={handleFormSubmit}>
+       
+        
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drEmail">Email:</label>
+          <input
+            placeholder="youremail@test.com"
+            name="drEmail"
+            type="drEmail"
+            id="drEmail"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="drPassword">Password:</label>
+          <input
+            placeholder="******"
+            name="drPassword"
+            type="drPassword"
+            id="drPassword"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex-row flex-end">
+          <button type="submit" >Submit</button>
+        </div>
+      </form>
+      {error && <div>Sign up failed</div>}
         </Stack>
       </Flex>
       <Flex flex={1}>

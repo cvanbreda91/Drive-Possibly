@@ -1,19 +1,12 @@
 import React from "react";
-
+import PatientList from "../components/PatientList";
+import auth from '../utils/auth'
 const DoctorPage = () => {
+  console.log(auth.getToken());
+
   return (
     <div className="drDashboardContainer">
-      <div className="pList">
-        <h1>Patient List</h1>
-        <div className="pName">
-          <h3>John Doe</h3>
-          <h4>Appt Time- 2:30</h4>
-        </div>
-        <div className="pName">
-          <h3>Tom Watt</h3>
-          <h4>Appt Time- 2:30</h4>
-        </div>
-      </div>
+          <PatientList />
       <div className="pView">
         <div className="pDetail">
           <h2 style={{ color: "#AC6666" }}>John Doe</h2>

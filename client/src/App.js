@@ -74,20 +74,20 @@ function App() {
                       path="/signup"
                       element={<Signup />}
                     />
-                    <Route
+                    {/* <Route
                       path="/profile"
                       element={<Profile />}
-                    />
-                    <Route
+                    /> */}
+                    {/* <Route
                       path="/patientnotes/:id"
                       element={<PatientNotes />}
-                    />
+                    /> */}
                     <Route
                       path="*"
                       element={<NoMatch />}
                     />
                     <Route
-                      path='/Doctor/1'
+                      path='/doctor'
                       element={<DoctorPage />} />
                   </Routes>
 
