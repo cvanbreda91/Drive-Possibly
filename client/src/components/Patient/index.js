@@ -1,21 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { Box, Text, CardBody, CardFooter, Button } from '@chakra-ui/react'
 const PatientList = ({ patients }) => {
 console.log (patients)
     return (
-        <div>
+
+        
+        <Box>
             {patients &&
                 patients.map(patient => (
-                    <div key={patient._id} className="card mb-3">
-                        <p className="card-header">
-                                {patient.patientFirstName}
-                        </p>
-                        <div className="card-body">
-                        </div>
-                    </div>
+                    <Box key={patient._id}>
+                        <Button mt={3} bg='#53687E'>{patient.patientFirstName} {patient.patientLastName}</Button>
+                                
+                    </Box>
                 ))}
-        </div>
+        </Box>
     );
 };
 

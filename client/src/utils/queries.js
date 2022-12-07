@@ -61,6 +61,7 @@ export const QUERY_PATIENT = gql`
     patient {
       _id
       patientFirstName
+      patientLastName
     }
   }
 `;
