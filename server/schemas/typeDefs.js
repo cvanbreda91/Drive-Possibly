@@ -56,7 +56,7 @@ type Query{
     doctors:[Doctor]
     doctor(_id: ID): Doctor
     patients:[Patient]
-    patient(drId:ID):Patient
+    patient: [Patient]
     drugs:[Drug]
     order:[Order]
 

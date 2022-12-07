@@ -35,8 +35,16 @@ const patientSchema = new Schema({
  
   appointments: [{ type: Schema.Types.ObjectId, ref: "Appointment" }]
 
-});
+},
+  {
+    toJSON: {
+      getters: true
+    }
+  });
 
+  patientSchema.virtual('appointmentCount').get(function() {
+    return this.appointments.length;
+  });
 // Using mongoose.model() to compile a model based on the schema 'patientSchema'
 const Patient = mongoose.model('Patient', patientSchema);
 

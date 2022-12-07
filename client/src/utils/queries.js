@@ -1,4 +1,4 @@
-import { gql,useQuery  } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const QUERY_DRUGS = gql`
   query getDrugs($dinNumber: String) {
@@ -12,25 +12,29 @@ export const QUERY_DRUGS = gql`
   }
 `;
 
-// export const QUERY_CHECKOUT = gql`
-//   query getCheckout($drugs: [ID]!) {
-//     checkout(drugs: $drugs) {
-//       session
-//     }
-//   }
-// `;
+export const QUERY_ME = gql`
+  {
+    me {
+      _id
+      drEmail
+      drFirstName
+      drLastName
+    }
+  }
+`;
 
-// export const QUERY_ALL_DRUGS = gql`
-//   {
-//     drugs() {
-//       _id
-//       drugName
-//       inventory
-//       dinNumber
-//       image
-//     }
-//   }
-// `;
+export const QUERY_ME_BASIC = gql`
+  {
+    me {
+      _id
+      drEmail
+      drFirstName
+      drLastName
+      friendCount
+    }
+  }
+`;
+
 
 export const QUERY_DOCTOR = gql`
 query Doctor($id: ID!) {
@@ -51,16 +55,12 @@ query Doctor($id: ID!) {
 }
 `;
 
-export const QUERY_PATIENT = gql`
-query Query($id: ID) {
-  patient(_id: $id) {
-    _id
-    appointmentNotes
-    drNotes
-    patientEmail
-    patientFirstName
-    patientLastName
-  }
-}
 
+export const QUERY_PATIENT = gql`
+   {
+    patient {
+      _id
+      patientFirstName
+    }
+  }
 `;

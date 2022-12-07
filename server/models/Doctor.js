@@ -27,7 +27,13 @@ const doctorSchema = new Schema({
   },
   patients: [{ type: Schema.Types.ObjectId, ref: "Patient" }],
   appointments: [{ type: Schema.Types.ObjectId, ref: "Appointment" }]
-});
+}
+,
+  {
+    toJSON: {
+      virtuals: true
+    }
+  });
 doctorSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('drPassword')) {
     const saltRounds = 10;
@@ -39,6 +45,10 @@ doctorSchema.pre('save', async function (next) {
 doctorSchema.methods.isCorrectPassword = async function (drPassword) {
   return await bcrypt.compare(drPassword, this.drPassword);
 };
+
+doctorSchema.virtual('patientCount').get(function() {
+  return this.patients.length;
+});
 // Using mongoose.model() to compile a model based on the schema 'doctorSchema'
 const Doctor = mongoose.model('Doctor', doctorSchema);
 

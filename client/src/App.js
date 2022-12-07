@@ -19,7 +19,6 @@ import Nav from './components/Nav'
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
-import PatientNotes from './pages/PatientNotes';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
@@ -42,7 +41,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

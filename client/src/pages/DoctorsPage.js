@@ -1,22 +1,33 @@
-import React from "react";
+import React from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 
-import PatientList from "../components/PatientList";
-import PatientView from "../components/PatientView";
-const DoctorPage =  () => {
+import PatientList from '../components/Patient';
 
-//  const user = auth.getProfile();
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_PATIENT, QUERY_ME, QUERY_DOCTOR } from '../utils/queries';
+import { ADD_FRIEND } from '../utils/mutations';
+import Auth from '../utils/auth';
 
-  // const{ loading ,data } =useQuery(QUERY_DOCTOR,{variables:{id:user.data._id}})
-  // console.log(data)
+const DoctorsPage = (props) => {
+  const { drEmail: userParam } = useParams();
+
+  const { loading, data } = useQuery(QUERY_PATIENT);
+  const patients = data?.patient || [];
+
+console.log(patients)
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="drDashboardContainer">
-      <PatientList />
-      <PatientView /> 
-      {/* <h1> Dr. {data.doctor.drFirstName} {data.doctor.drFirstName}</h1> */}
-    
-          
-    </div>
+      <div className="flex-row justify-space-between mb-3">
+        <div className="col-12 mb-3 col-lg-8">
+        <PatientList 
+        patients={patients}/>
+        </div>
+        </div>
+
   );
 };
 
-export default DoctorPage;
+export default DoctorsPage;

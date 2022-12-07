@@ -24,31 +24,27 @@ const resolvers = {
         drugs: async () => {
             return Drug.find();
         },
+        patient: async (parent, args) => {
+            return Patient.find();
+        },
         patients: async () => {
             return Patient.find();
         },
-        patient: async(parent,{_id})=>{
-            const patientData = await Patient.findOne({ _id:_id  })
-            .populate('appointments')
-            .populate('doctor');
-            console.log(patientData)
-            return patientData;
-        },
-        doctor: async (parent, {_id}) => {
-            
-                const doctorData = await Doctor.findOne({_id:_id })
+        doctor: async (parent, { _id }) => {
+
+            const doctorData = await Doctor.findOne({ _id: _id })
                 .select('-__v -drPassword')
                 .populate('patient')
                 .populate('appointments');
-            
+
             console.log(doctorData)
-                return doctorData;
-            
+            return doctorData;
 
-                
-            }
 
-        
+
+        }
+
+
     },
     Mutation: {
         addDoctor: async (parent, args) => {
@@ -87,12 +83,12 @@ const resolvers = {
         },
         addPatient: async (parent, args, context) => {
             const patient = await Patient.create(args);
-            const doctor = await Doctor.findByIdAndUpdate(args.drId, 
-                    {$push:{patients:patient._id}}
-                )
+            const doctor = await Doctor.findByIdAndUpdate(args.drId,
+                { $push: { patients: patient._id } }
+            )
 
             // await doctor.patients.push(patient)
-            
+
             return patient;
         },
         addNote: async () => {
