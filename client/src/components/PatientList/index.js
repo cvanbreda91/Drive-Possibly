@@ -11,12 +11,11 @@ const PatientList = ({patients}) => {
         patients.map((patient) => (
           <div key={patient._id} className="card mb-3">
             <p className="card-header">
-            
-              thought on {patient.patientFirstName}
+               {patient.patientFirstName} {patient.patientLastName}
             </p>
-            <div className="card-body">
+            {/* <div className="card-body">
              
-            </div>
+            </div> */}
           </div>
         ))}
         </div>

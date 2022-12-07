@@ -24,16 +24,28 @@ const resolvers = {
         drugs: async () => {
             return Drug.find();
         },
-        patient: async () => {
+        patients: async () => {
             return Patient.find();
         },
+        patient: async(parent,{_id})=>{
+            const patientData = await Patient.findOne({ _id:_id  })
+            .populate('appointments')
+            .populate('doctor');
+            console.log(patientData)
+            return patientData;
+        },
         doctor: async (parent, {_id}) => {
-                const doctorData = await Doctor.findOne({ _id:_id  })
-                    .select('-__v -drPassword')
-                    .populate('patients')
-                    .populate('appointments');
-
+            
+                const doctorData = await Doctor.findOne({_id:_id })
+                .select('-__v -drPassword')
+                .populate('patient')
+                .populate('appointments');
+            
+            console.log(doctorData)
                 return doctorData;
+            
+
+                
             }
 
         
@@ -42,11 +54,7 @@ const resolvers = {
         addDoctor: async (parent, args) => {
             const doctor = await Doctor.create(args);
             const token = signToken(doctor);
-
             return { token, doctor };
-        },
-        addPatientToDoctor:async(parent,args)=>{
-            return await Doctor.findByIdAndUpdate(context.doctor.patients, args, { new: true });
         },
         addOrder: async (parent, { drugs }, context) => {
             console.log(context);
@@ -79,7 +87,12 @@ const resolvers = {
         },
         addPatient: async (parent, args, context) => {
             const patient = await Patient.create(args);
+            const doctor = await Doctor.findByIdAndUpdate(args.drId, 
+                    {$push:{patients:patient._id}}
+                )
 
+            // await doctor.patients.push(patient)
+            
             return patient;
         },
         addNote: async () => {

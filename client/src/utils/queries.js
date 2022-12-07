@@ -52,22 +52,16 @@ query user($id: ID!) {
 }
 `;
 
-// export const QUERY_PATIENT = gql`
-//   {
-//     patient {
-//       _id
-//       patientFirstName
-//       patientLastName
-//       patientEmail
-//       drNotes
-//       appointmentNotes
-//       appointments {
-//         _id
-//         appointmentDate
-//         doctor
-//         patient
-//         location
-//       }
-//     }
-//   }
-// `;
+export const QUERY_PATIENT = gql`
+query Query($id: ID) {
+  patient(_id: $id) {
+    _id
+    appointmentNotes
+    drNotes
+    patientEmail
+    patientFirstName
+    patientLastName
+  }
+}
+
+`;
