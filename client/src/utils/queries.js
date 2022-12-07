@@ -33,20 +33,19 @@ export const QUERY_DRUGS = gql`
 // `;
 
 export const QUERY_DOCTOR = gql`
-query user($id: ID!) {
+query Doctor($id: ID!) {
   doctor(_id: $id) {
     _id
     drEmail
     drFirstName
     drLastName
-    drPassword
     patients {
       _id
-      appointmentNotes
-      drNotes
       patientFirstName
       patientLastName
-      patientPassword
+      patientEmail
+      drId
+      drNotes
     }
   }
 }
