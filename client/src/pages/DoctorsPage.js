@@ -2,7 +2,7 @@ import React,{useEffect, useState}from "react";
 import { useQuery } from "@apollo/client";
 import PatientList from "../components/PatientList";
 import auth from '../utils/auth'
-import { QUERY_DOCTOR } from "../utils/queries";
+import { QUERY_ME } from "../utils/queries";
 import PatientView from "../components/PatientView";
 const DoctorPage = () => {
   const [currentPatient,setCurrentPatient]= useState()
@@ -13,9 +13,9 @@ const DoctorPage = () => {
   return (
     
     <div className="drDashboardContainer">
-      <h1> Dr. {data.doctor.drFirstName} {data.doctor.drFirstName}</h1>
-          <PatientList patients={data.doctor.patients} currentPatient={currentPatient} setCurrentPatient={setCurrentPatient}/>
-          <PatientView currentPatient={currentPatient}/>
+      {/* <h1> Dr. {data.doctor.drFirstName} {data.doctor.drFirstName}</h1>
+          {/* <PatientList patients={data.doctor.patients} currentPatient={currentPatient} setCurrentPatient={setCurrentPatient}/>
+          <PatientView currentPatient={currentPatient}/> */} 
     </div>
   );
 };
