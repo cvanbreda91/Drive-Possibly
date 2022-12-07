@@ -24,8 +24,8 @@ const resolvers = {
         drugs: async () => {
             return Drug.find();
         },
-        patient: async (parent, args) => {
-            return Patient.find();
+        patient: async (parent, { _id }) => {
+            return Patient.findOne({_id: _id} );
         },
         patients: async () => {
             return Patient.find();

@@ -57,11 +57,25 @@ query Doctor($id: ID!) {
 
 
 export const QUERY_PATIENT = gql`
-   {
-    patient {
+    {
+    patients {
       _id
       patientFirstName
       patientLastName
+      drId
+      drNotes
+    }
+  }
+`;
+
+export const QUERY_SINGLE_PATIENT = gql`
+    query Patient($id: ID!){
+    patient (_id: $id) {
+      _id
+      patientFirstName
+      patientLastName
+      drId
+      drNotes
     }
   }
 `;

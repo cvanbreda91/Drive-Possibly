@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-
-import PatientList from '../components/Patient';
+import PatientList from '../components/PatientList';
 import { Box, SimpleGrid, Heading, HStack, Button } from '@chakra-ui/react'
 import {
   Popover,
@@ -9,7 +7,8 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
+  Alert,
+  AlertIcon,
   PopoverArrow,
   PopoverCloseButton,
   PopoverAnchor,
@@ -19,15 +18,16 @@ import {
 } from '@chakra-ui/react'
 import { ADD_PATIENT } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_PATIENT, QUERY_ME, QUERY_DOCTOR } from '../utils/queries';
-import { ADD_FRIEND } from '../utils/mutations';
+import { QUERY_PATIENT, QUERY_SINGLE_PATIENT } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const DoctorsPage = (props) => {
-  const [formState, setFormState] = useState({ pateientFirstName: '', patientLastName: '', patientEmail: '' });
+  const initRef = React.useRef();
+  const [formState, setFormState] = useState({ pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '' });
   const [addPatient, { error }] = useMutation(ADD_PATIENT);
   const { loading, data } = useQuery(QUERY_PATIENT);
-  const patients = data?.patient || [];
+  const patients = data?.patients || [];
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -36,7 +36,7 @@ const DoctorsPage = (props) => {
       [name]: value,
     });
   };
-  console.log(patients)
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -57,7 +57,7 @@ const DoctorsPage = (props) => {
 
     // clear form values
     setFormState({
-      pateientFirstName: '', patientLastName: '', patientEmail: ''
+      pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '',
     });
   };
 
@@ -67,49 +67,61 @@ const DoctorsPage = (props) => {
       <Box bg='blue'>
         <HStack>
           <Heading>Patient List</Heading>
-          <Popover>
-            <PopoverTrigger>
-              <Button>Add Patient</Button>
-            </PopoverTrigger>
-            <form onSubmit={handleFormSubmit}>
-              <PopoverContent>
-                <PopoverArrow />
-                <PopoverHeader>Add New Patient</PopoverHeader>
-                <PopoverCloseButton />
-                <PopoverBody>
-                  <FormControl id="patientFirstName">
-                    <FormLabel htmlFor="patientFirstName">First Name</FormLabel>
-                    <Input type="patientFirstName"
-                      placeholder="Jane"
-                      name="patientFirstName"
-                      id="patientFirstName"
-                      onChange={handleChange} />
-                  </FormControl>
-                  <FormControl id="patientLastName">
-                    <FormLabel mt={1} htmlFor="patientLastName">Last Name</FormLabel>
-                    <Input type="patientLastName"
-                      placeholder="Doe"
-                      name="patientLastName"
-                      id="patientLastName"
-                      onChange={handleChange} />
-                  </FormControl>
-                  <FormControl mt={1} id="patientEmail">
-                    <FormLabel htmlFor="patientEmail">email</FormLabel>
-                    <Input type="patientEmail"
-                      placeholder="jane.doe@email.com"
-                      name="patientEmail"
-                      id="patientEmail"
-                      onChange={handleChange} />
-                  </FormControl>
-                  <Button mt={3} type="submit" colorScheme='blue'>Add!</Button>
-                </PopoverBody>
-                <PopoverFooter>{error && <div>Cannot add patient</div>}</PopoverFooter>
-              </PopoverContent>
-            </form>
+          <Popover closeOnBlur={false} placement='left' initialFocusRef={initRef}>
+            {({ isOpen, onClose }) => (
+              <>
+                <PopoverTrigger>
+                  <Button>Add Patient</Button>
+                </PopoverTrigger>
+                <form onSubmit={handleFormSubmit}>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverHeader>Add New Patient</PopoverHeader>
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <FormControl id="patientFirstName">
+                        <FormLabel htmlFor="patientFirstName">First Name</FormLabel>
+                        <Input type="patientFirstName"
+                          placeholder="Jane"
+                          name="patientFirstName"
+                          id="patientFirstName"
+                          onChange={handleChange} />
+                      </FormControl>
+                      <FormControl id="patientLastName">
+                        <FormLabel mt={1} htmlFor="patientLastName">Last Name</FormLabel>
+                        <Input type="patientLastName"
+                          placeholder="Doe"
+                          name="patientLastName"
+                          id="patientLastName"
+                          onChange={handleChange} />
+                      </FormControl>
+                      <FormControl mt={1} id="patientEmail">
+                        <FormLabel htmlFor="patientEmail">email</FormLabel>
+                        <Input type="patientEmail"
+                          placeholder="jane.doe@email.com"
+                          name="patientEmail"
+                          id="patientEmail"
+                          onChange={handleChange} />
+                      </FormControl>
+                      <Button mt={3}
+                        onClick={(onClose)}
+                        ref={initRef}
+                        type="submit"
+                        colorScheme='blue'>Add!</Button>
+                    </PopoverBody>
+                  </PopoverContent>
+                </form>
+              </>)}
           </Popover>
         </HStack>
+        {error && <Alert status='error'>
+            <AlertIcon />
+            There was an error processing your request
+          </Alert>}
         <PatientList
           patients={patients} />
+      </Box>
+      <Box>
       </Box>
     </SimpleGrid>
   );
