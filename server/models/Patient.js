@@ -18,18 +18,23 @@ const patientSchema = new Schema({
     type: String,
     unique: true,
     required: true
-
   },
-  patientPassword: {
-    type: String,
-  },
+//   patientPassword: {
+// type: String,
+// },
   drNotes: { 
     type: String 
   },
   appointmentNotes: { 
     type: String 
   },
+  drId:{
+     type: Schema.Types.ObjectId, ref: "Doctor" ,
+     required:true
+  },
+ 
   appointments: [{ type: Schema.Types.ObjectId, ref: "Appointment" }]
+
 });
 
 // Using mongoose.model() to compile a model based on the schema 'patientSchema'

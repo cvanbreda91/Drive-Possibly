@@ -6,17 +6,25 @@ import {
     REMOVE_FROM_CART,
     ADD_MULTIPLE_TO_CART,
     CLEAR_CART,
+    UPDATE_DOCTOR,
     TOGGLE_CART
 } from "./actions";
 
 export const reducer = (state, action) => {
     switch (action.type) {
+        
         case UPDATE_DRUGS:
             return {
                 ...state,
                 drugs: [...action.drugs],
             };
 
+        case UPDATE_DOCTOR:
+                return {
+                    ...state,
+                    doctors: [...action.doctors],
+                };
+    
         case ADD_TO_CART:
             return {
                 ...state,

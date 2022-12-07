@@ -2,18 +2,23 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import { ADD_THOUGHT } from "../../utils/mutations";
-import { QUERY_THOUGHTS, QUERY_ME } from "../../utils/queries";
+import { QUERY_patients, QUERY_ME } from "../../utils/queries";
 
-const PatientList = () => {
-    return(  <div className="pList">
-
-    {/* <h1>Patient List</h1>
-    <div className="pName">
-      <h3>John Doe</h3>
-      <h4>Appt Time- 2:30</h4>
-    </div> */}
-
-  </div>
+const PatientList = ({patients}) => {
+    return( 
+         <div className="pList">
+                  {patients &&
+        patients.map((patient) => (
+          <div key={patient._id} className="card mb-3">
+            <p className="card-header">
+               {patient.patientFirstName} {patient.patientLastName}
+            </p>
+            {/* <div className="card-body">
+             
+            </div> */}
+          </div>
+        ))}
+        </div>
     )
 };
 
