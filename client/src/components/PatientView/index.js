@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button } from '@chakra-ui/react'
-
+import PatientShop from '../PatientShop'
 const PatientView = ({ patients }) => {
 
     return (
