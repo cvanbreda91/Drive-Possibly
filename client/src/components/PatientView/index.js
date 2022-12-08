@@ -1,13 +1,16 @@
 import React from 'react';
 import { Box, Button } from '@chakra-ui/react'
 
-const PatientList = ({ patients }) => {
+const PatientView = ({ patients }) => {
 
     return (
         <Box>
-hi
+            <div className='pView'>
+                <h1>Test</h1>
+            </div>
+            < PatientShop />
         </Box>
     );
 };
 
-export default PatientList;
+export default PatientView;

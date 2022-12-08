@@ -135,9 +135,9 @@ body {
   COLOR:white
 }
 .pView{
-  padding-left: 20px;
+  padding-left: 1000px;
   padding-top:20px;
-  margin-left:20%;
+  margin-left:30%;
   background-color: #63BABA;
   min-width: 80%;
   position: absolute;
