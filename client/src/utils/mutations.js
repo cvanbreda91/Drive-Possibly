@@ -13,6 +13,8 @@ export const LOGIN_DOCTOR = gql`
 }
 `;
 
+
+
 export const ADD_DOCTOR = gql`
   mutation addDoctor(
     $drFirstName: String!
@@ -35,21 +37,8 @@ export const ADD_DOCTOR = gql`
   }
 `;
 
-// export const ADD_DRUG = gql`
-//   mutation addDrug(
-//     $drugName: String!
-//     $inventory: Int!
-//     $dinNumber: String!
-//     $description: String!
-//   ) {
-//     addDrug(
-//       drugName: $drugName
-//       inventory: $inventory
-//       dinNumber: $dinNumber
-//       description: $description
-//     ) 
-//   }
-// `;
+
+
 
 // export const ADD_ORDER = gql`
 //   mutation addOrder($drugs: [ID]!) {
@@ -67,7 +56,7 @@ export const ADD_DOCTOR = gql`
 // `;
 
 export const ADD_PATIENT = gql`
-mutation Mutation($patientFirstName: String!, $patientLastName: String!, $patientEmail: String!, $drNotes: String, $appointmentNotes: String) {
+mutation addPatient($patientFirstName: String!, $patientLastName: String!, $patientEmail: String!, $drNotes: String, $appointmentNotes: String) {
   addPatient(patientFirstName: $patientFirstName, patientLastName: $patientLastName, patientEmail: $patientEmail, drNotes: $drNotes, appointmentNotes: $appointmentNotes) {
     _id
     appointmentNotes
@@ -86,8 +75,8 @@ mutation Mutation($patientFirstName: String!, $patientLastName: String!, $patien
 }
 `;
 export const UPDATE_PATIENT =gql`
-mutation Mutation($patientFirstName: String!, $patientLastName: String!, $patientEmail: String!, $drNotes: String, $appointmentNotes: String) {
-  addPatient(patientFirstName: $patientFirstName, patientLastName: $patientLastName, patientEmail: $patientEmail, drNotes: $drNotes, appointmentNotes: $appointmentNotes) {
+mutation updatePatient($patientFirstName: String!, $patientLastName: String!, $patientEmail: String!, $drNotes: String, $appointmentNotes: String) {
+  updatePatient(patientFirstName: $patientFirstName, patientLastName: $patientLastName, patientEmail: $patientEmail, drNotes: $drNotes, appointmentNotes: $appointmentNotes) {
     _id
     appointmentNotes
     drNotes
@@ -101,6 +90,27 @@ mutation Mutation($patientFirstName: String!, $patientLastName: String!, $patien
       location
       updatedAt
     }
+  }
+}
+`
+
+export const UPDATE_NOTES =gql`
+mutation updateNotes($id: ID!) {
+  updateNotes(patientFirstName: $patientFirstName, patientLastName: $patientLastName, patientEmail: $patientEmail, drNotes: $drNotes, appointmentNotes: $appointmentNotes) {
+    _id
+    drNotes
+  }
+}
+`
+
+export const UPDATE_DRUGS =gql`
+mutation updateDrugs($drugName: String!, $inventory: Int!, $dinNumber: String!, $description: String) {
+  updateDrugs(drugName: $drugName, inventory: $inventory, dinNumber: $dinNumber, description: $description) {
+    _id
+    drugName
+    inventory
+    dinNumber
+    description
   }
 }
 `

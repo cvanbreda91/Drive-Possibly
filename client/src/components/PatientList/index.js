@@ -15,10 +15,12 @@ const PatientList = ({ patients,currentPatient,setPatient }) => {
                 patients.map(patient => (
                     <Box key={patient._id}>
                         <Button
+                        ml={2}
                             mt={3}
                             bg='#53687E'
                             onClick={handleClick}
                             id={patient._id}
+                            w='200px'
                         >{patient.patientFirstName} {patient.patientLastName}</Button>
                     </Box>
                 ))}

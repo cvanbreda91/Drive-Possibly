@@ -45,7 +45,7 @@ function Nav() {
               }}
             >
               <BreadcrumbItem>
-              <BreadcrumbLink as={Link} to='/doctor' >Doctor Dashboard</BreadcrumbLink>
+              <BreadcrumbLink as={Link} to='/myAccount' >Doctor Dashboard</BreadcrumbLink>
               </BreadcrumbItem>
             </Box>
           </BreadcrumbItem>

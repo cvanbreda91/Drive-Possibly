@@ -1,54 +1,54 @@
-import React, {useState,useRef}from 'react';
-import { Box, Button } from '@chakra-ui/react'
+import React, { useState, useRef } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import PatientShop from '../PatientShop'
 import { QUERY_PATIENT, QUERY_SINGLE_PATIENT } from '../../utils/queries';
 import { UPDATE_PATIENT } from '../../utils/mutations';
+import { Box, Textarea, GridItem, Heading, HStack, Button } from '@chakra-ui/react'
 
 const PatientView = ({ currentPatient }) => {
-    const ref=useRef(null)
-    // const updatePatientNotes =() =>{
-    //     setFormState({drNotes:})
-    // }
-    const [updatePatientNotes, { error }] = useMutation(UPDATE_PATIENT);
-    const handleFormSubmit = async (e) =>{
-        e.preventDefault();
-        console.log(ref.current.value)
-        // setFormState()
-        try {
-        const { data } = await updatePatientNotes({
-          variables: { ...formState },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-  
-
-    }
-    const { loading, data } = useQuery(QUERY_SINGLE_PATIENT,{
-        variables: {id:currentPatient}
+  const ref = useRef(null)
+  // const updatePatientNotes =() =>{
+  //     setFormState({drNotes:})
+  // }
+  const [updatePatientNotes, { error }] = useMutation(UPDATE_PATIENT);
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log(ref.current.value)
+    // setFormState()
+    try {
+      const { data } = await updatePatientNotes({
+        variables: { ...formState },
       });
-      const patient = data?.patient || [];
-    //   console.log(patient);
-    const [formState, setFormState] = useState({ drNotes:patient.drNotes});
-    return (
-        <Box>
-            <div className='pView'>
-                <h1> PatientName: {patient.patientFirstName} {patient.patientLastName}</h1>
-                <h1> Notes</h1>
-                <form onSubmit={handleFormSubmit}>
-                <textarea name ="notes" value = {formState.drNotes}className='pNote' ref={ref}></textarea><br />
-                <button type="submit">Update Notes</button>
-                </form>
-                <div className = "pAppointment">
-                    <h1>Appointment Details</h1>
-                    
-            </div>
-            </div>
-    
-            <PatientShop />
-        </Box>
-    );
+    } catch (e) {
+      console.error(e);
+    }
+
+
+  }
+  const { loading, data } = useQuery(QUERY_SINGLE_PATIENT, {
+    variables: { id: currentPatient }
+  });
+  const patient = data?.patient || [];
+  //   console.log(patient);
+  const [formState, setFormState] = useState({ drNotes: patient.drNotes });
+  return (
+    <GridItem colSpan={3} rowSpan={1}>
+      <Box>
+        <Heading size='lg'> Patient Name: {patient.patientFirstName} {patient.patientLastName}</Heading>
+        <Heading mt={3} size='md'>Notes </Heading>
+        <form onSubmit={handleFormSubmit}>
+          <Textarea size='3xl' h="200px" name="notes" value={formState.drNotes} ref={ref}></Textarea><br />
+          <Button type="submit" mt={2}>Update Notes</Button>
+        </form>
+      </Box>
+    </GridItem>
+
+
+
+
+
+
+  );
 };
 
 export default PatientView;

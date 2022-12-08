@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PatientList from '../components/PatientList';
 import PatientView from '../components/PatientView';
-import { Box, SimpleGrid, Heading, HStack, Button } from '@chakra-ui/react'
+import Appointment from '../components/Appointment';
+import Drugs from '../components/Drugs';
+import { Box, Grid, Heading, HStack, Button, GridItem } from '@chakra-ui/react'
 import {
   Popover,
   PopoverTrigger,
@@ -19,30 +21,41 @@ import {
 } from '@chakra-ui/react'
 import { ADD_PATIENT } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_PATIENT, QUERY_SINGLE_PATIENT } from '../utils/queries';
+import { QUERY_PATIENT, QUERY_DRUGS } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const DoctorsPage = (props) => {
   const initRef = React.useRef();
-  const [currentPatient,setPatient]=useState();
- 
-  const [formState, setFormState] = useState({ pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '' });
+  const [currentPatient, setPatient] = useState();
+  const [currentDrug, setDrug] = useState();
+
+  const [formStatePatient, setFormStatePatient] = useState({ pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '' });
+  const [formStateDrug, setFormStateDrug] = useState({ drugName: '', dinNumber: '', inventory: '', description: '' });
   const [addPatient, { error }] = useMutation(ADD_PATIENT);
-  const { loading, data } = useQuery(QUERY_PATIENT);
+  const { loadingPatient, data } = useQuery(QUERY_PATIENT);
   const patients = data?.patients || [];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormState({
-      ...formState,
+    setFormStatePatient({
+      ...formStatePatient,
       [name]: value,
     });
   };
 
-  if (loading) {
+  if (loadingPatient) {
     return <div>Loading...</div>;
   }
+
+  const handleChangeDrug = (event) => {
+    const { name, value } = event.target;
+
+    setFormStateDrug({
+      ...formStateDrug,
+      [name]: value,
+    });
+  };
 
   // submit form
   const handleFormSubmit = async (event) => {
@@ -50,7 +63,7 @@ const DoctorsPage = (props) => {
 
     try {
       const { data } = await addPatient({
-        variables: { ...formState },
+        variables: { ...formStatePatient },
       });
 
       Auth.login(data.login.token);
@@ -59,22 +72,27 @@ const DoctorsPage = (props) => {
     }
 
     // clear form values
-    setFormState({
+    setPatient({
       pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '',
     });
   };
 
+
   return (
 
-    <SimpleGrid columns={5} spacingX='40px' spacingY='20px'>
-      <Box bg='blue'>
+    <Grid templateRows='repeat(2, 1fr)'
+      templateColumns='repeat(5, 1fr)'
+      gap={4}
+      h='max-content'>
+        <GridItem colSpan={1} rowSpan={2} >
+      <Box bg='#5CC8FF' height='750'>
         <HStack>
           <Heading>Patient List</Heading>
           <Popover closeOnBlur={false} placement='left' initialFocusRef={initRef}>
             {({ isOpen, onClose }) => (
               <>
                 <PopoverTrigger>
-                  <Button>Add Patient</Button>
+                  <Button background="grey">Add Patient</Button>
                 </PopoverTrigger>
                 <form onSubmit={handleFormSubmit}>
                   <PopoverContent>
@@ -118,19 +136,21 @@ const DoctorsPage = (props) => {
           </Popover>
         </HStack>
         {error && <Alert status='error'>
-            <AlertIcon />
-            There was an error processing your request
-          </Alert>}
+          <AlertIcon />
+          There was an error processing your request
+        </Alert>}
         <PatientList
-          patients={patients} currentPatient={currentPatient} setPatient={setPatient}/>
-          
+          patients={patients} currentPatient={currentPatient} setPatient={setPatient} />
       </Box>
+      </GridItem>
       <PatientView currentPatient={currentPatient} />
       <Box>
-     
+        <Appointment />
       </Box>
-      
-    </SimpleGrid>
+      <Box>
+        <Drugs />
+      </Box>
+    </Grid>
   );
 };
 

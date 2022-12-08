@@ -1,108 +1,119 @@
-import React, { useEffect } from 'react';
-import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers"
-import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_TO_CART, UPDATE_DRUGS, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
-import { QUERY_DRUGS }  from '../../utils/queries';
-import { useQuery } from '@apollo/client';
-import spinner from '../../assets/spinner.gif';
+import React, { useState, useRef } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_DRUGS, QUERY_SINGLE_PATIENT, QUERY_DRUG } from '../../utils/queries';
+import { UPDATE_DRUGS } from '../../utils/mutations';
+import { Box, Input, GridItem, Heading, CardHeader, CardBody, CardFooter, HStack, Button, Card, WrapItem, Flex } from '@chakra-ui/react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+} from '@chakra-ui/react'
 
-function DrugItem(item) {
-    const [state, dispatch] = useStoreContext();
-
-    const {
-        _id,
-        drugName,
-        inventory,
-        dinNumber,
-        description
-    } = item;
-
-    const { cart } = state
-
-    const addToCart = () => {
-        const itemInCart = cart.find((cartItem) => cartItem._id === _id)
-        if (itemInCart) {
-            dispatch({
-                type: UPDATE_CART_QUANTITY,
-                _id: _id,
-                purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+const Drugs = ({ currentDrug }) => {
+    const ref = useRef(null)
+    // const updatePatientNotes =() =>{
+    //     setFormState({drNotes:})
+    // }
+    const [updateDrugs, { error }] = useMutation(UPDATE_DRUGS);
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        console.log(ref.current.value)
+        // setFormState()
+        try {
+            const { data } = await updateDrugs({
+                variables: { ...formState },
             });
-            idbPromise('cart', 'put', {
-                ...itemInCart,
-                purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-            });
-        } else {
-            dispatch({
-                type: ADD_TO_CART,
-                product: { ...item, purchaseQuantity: 1 }
-            });
-            idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
+        } catch (e) {
+            console.error(e);
         }
+
+
     }
-
-    return (
-        <div className="card px-1 py-1">
-            <Link to={`/drugs/${_id}`}>
-                <p>{drugName}</p>
-            </Link>
-            <div>
-                <div>{inventory} {pluralize("item", inventory)} in stock</div>
-            </div>
-            <div>
-                <div>{description}</div>
-                <div>{dinNumber}</div>
-            </div>
-            <button onClick={addToCart}>Add to order</button>
-        </div>
-    );
-}
-
-function DrugList() {
-    const [state, dispatch] = useStoreContext();
-
     const { loading, data } = useQuery(QUERY_DRUGS);
-
-    useEffect(() => {
-        if (data) {
-            dispatch({
-                type: UPDATE_DRUGS,
-                products: data.drugs,
-            });
-            data.drugs.forEach((drug) => {
-                idbPromise('drugs', 'put', drug);
-            });
-        } else if (!loading) {
-            idbPromise('drugs', 'get').then((drugs) => {
-                dispatch({
-                    type: UPDATE_DRUGS,
-                    products: drugs,
-                });
-            });
-        }
-    }, [data, loading, dispatch]);
+    const drug = data?.drug || [];
+    //   console.log(patient);
+    const [formState, setFormState] = useState({});
     return (
-        <div className="my-2">
-            <h2>Drugs:</h2>
-            {state.drugs.length ? (
-                <div className="flex-row">
-                    {DrugItem().map((drug) => (
-                        <DrugItem
-                            key={drug._id}
-                            _id={drug._id}
-                            name={drug.drugName}
-                            inventory={drug.inventory}
-                            description={drug.description}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <h3>Don't you need some drugs?</h3>
-            )}
-            {loading ? <img src={spinner} alt="loading" /> : null}
-        </div>
-    );
-}
+        <HStack>
+            <GridItem colSpan={3} rowSpan={1}>
+                <Box>
+                    <Heading>
+                        Pharmacy
+                    </Heading>
+                    <>
+                        <WrapItem m={5}>
+                            <Card alignItems='center' width='200px' height='200px' m={2}>
+                                <CardBody>
+                                    <Heading size='sm'>Xanax</Heading>
+                                    Xanax is a benzodiazepine...
+                                </CardBody>
+                                <CardFooter>
+                                    <Button mr={3}>
+                                        Add!
+                                    </Button>
+                                    <Button  >
+                                        Info!
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                            <Card alignItems='center' width='200px' height='200px' m={2}>
+                                <CardBody>
+                                    <Heading size='sm'>Adderall</Heading>
+                                    Adderall is used to treat attention...
+                                </CardBody>
+                                <CardFooter>
+                                    <Button mr={3}>
+                                        Add!
+                                    </Button>
+                                    <Button>
+                                        Info!
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                            <Card alignItems='center' width='200px' height='200px' m={2}>
+                                <CardBody>
+                                    <Heading size='sm'>Ibuprofen</Heading>
+                                    Ibuprofen is a nonsteroidal anti...
+                                </CardBody>
+                                <CardFooter>
+                                    <Button mr={3}>
+                                        Add!
+                                    </Button>
+                                    <Button>
+                                        Info!
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                            <Card alignItems='center' width='200px' height='200px' m={2}>
+                                <CardBody>
+                                    <Heading size='sm'>Melatonin</Heading>
+                                    Melatonin is the natural...
+                                </CardBody>
+                                <CardFooter>
+                                    <Button mr={3}>
+                                        Add!
+                                    </Button>
+                                    <Button>
+                                        Info!
+                                    </Button>
+                                </CardFooter>
+                            </Card>
 
-export default { DrugItem, DrugList };
+                        </WrapItem>
+                    </>
+                </Box>
+            </GridItem>
+            <GridItem colSpan={2} rowSpan={1}>
+                <Input w='300px' h='300px'>
+                </Input>
+                <Button mt={2}>Save</Button>
+            </GridItem>
+        </HStack>
+    );
+};
+
+export default Drugs;

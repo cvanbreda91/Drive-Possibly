@@ -24,6 +24,13 @@ export const reducer = (state, action) => {
         ...state,
         doctors: [...action.doctors],
       };
+
+      case UPDATE_DRUGS:
+        return {
+          ...state,
+          doctors: [...action.doctors],
+        };
+
     case UPDATE_PATIENT:
       return {
         ...state,

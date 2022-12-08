@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_DRUGS = gql`
-  query getDrugs($dinNumber: String) {
+export const QUERY_DRUG = gql`
+  query getDrug($dinNumber: String) {
     drugs(dinNumber: $dinNumber) {
       _id
       drugName
@@ -64,6 +64,18 @@ export const QUERY_PATIENT = gql`
       patientLastName
       drId
       drNotes
+    }
+  }
+`;
+
+export const QUERY_DRUGS = gql`
+    {
+    drugs {
+        _id
+        drugName
+        inventory
+        dinNumber
+        description
     }
   }
 `;
