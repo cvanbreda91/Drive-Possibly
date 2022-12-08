@@ -60,14 +60,14 @@ type Query{
     drug(id:ID): Drug
     drugs:[Drug]
     order:[Order]
-
+    
 }
 
 type Mutation{
     login(drEmail: String!, drPassword: String!): Auth
     addDoctor(drEmail: String!, drPassword: String!, drFirstName: String!, drLastName: String!): Auth
     addPatient(patientFirstName: String!, patientLastName: String! patientEmail: String!, drNotes: String, drId:String ,appointmentNotes: String, appointments: String): Patient
-    addNote(noteText: String!): Patient
+    addNote(_id:ID!, drNotes: String): Patient
     removeNote(noteText: String!): Patient
     addAppointment(appointmentDate: String!): Appointment
     removeAppointment(appointmentDate: String!): Appointment
@@ -75,6 +75,7 @@ type Mutation{
     updateDrug(_id: ID!, inventory: Int!): Drug
     addOrder(drug: [ID]!, patient:ID!): Order
     updateDoctor(drFirstName: String, drLastName: String, drEmail: String, password: String): Doctor
+    deleteAllPatients:Patient
 }
 
 `

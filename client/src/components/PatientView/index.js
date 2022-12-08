@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import PatientShop from '../PatientShop'
 import { QUERY_PATIENT, QUERY_SINGLE_PATIENT } from '../../utils/queries';
-import { UPDATE_PATIENT } from '../../utils/mutations';
+import { UPDATE_NOTES, UPDATE_PATIENT } from '../../utils/mutations';
 import { Box, Textarea, GridItem, Heading, HStack, Button } from '@chakra-ui/react'
 
 const PatientView = ({ currentPatient }) => {
@@ -10,7 +10,7 @@ const PatientView = ({ currentPatient }) => {
   // const updatePatientNotes =() =>{
   //     setFormState({drNotes:})
   // }
-  const [updatePatientNotes, { error }] = useMutation(UPDATE_PATIENT);
+  const [updatePatientNotes, { error }] = useMutation(UPDATE_NOTES);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(ref.current.value)
@@ -18,8 +18,7 @@ const PatientView = ({ currentPatient }) => {
     try {
       const { data } = await updatePatientNotes({
         variables: { ...formState },
-      });
-    } catch (e) {
+      });    } catch (e) {
       console.error(e);
     }
 

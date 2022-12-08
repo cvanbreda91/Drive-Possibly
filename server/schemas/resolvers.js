@@ -91,10 +91,16 @@ const resolvers = {
 
             return patient;
         },
-        addNote: async () => {
-
+        addNote: async (parent,args) => {
+            console.log(args)
+            const patient = await Patient.findByIdAndUpdate(args._id,{$push:{ drNotes:args.drNotes }});
+          
+            return patient;
         },
-
+        deleteAllPatients:async(parent,args)=>{
+            const patient = Patient.deleteMany({})
+        }
+,
         login: async (parent, { drEmail, drPassword }) => {
             const doctor = await Doctor.findOne({ drEmail });
 

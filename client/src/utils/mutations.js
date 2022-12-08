@@ -95,8 +95,8 @@ mutation updatePatient($patientFirstName: String!, $patientLastName: String!, $p
 `
 
 export const UPDATE_NOTES =gql`
-mutation updateNotes($id: ID!) {
-  updateNotes(patientFirstName: $patientFirstName, patientLastName: $patientLastName, patientEmail: $patientEmail, drNotes: $drNotes, appointmentNotes: $appointmentNotes) {
+mutation addNote($id: ID!, $drNotes: String) {
+  addNote(_id: $id, drNotes: $drNotes) {
     _id
     drNotes
   }
