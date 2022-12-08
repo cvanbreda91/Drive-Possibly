@@ -85,3 +85,22 @@ mutation Mutation($patientFirstName: String!, $patientLastName: String!, $patien
   }
 }
 `;
+export const UPDATE_PATIENT =gql`
+mutation Mutation($patientFirstName: String!, $patientLastName: String!, $patientEmail: String!, $drNotes: String, $appointmentNotes: String) {
+  addPatient(patientFirstName: $patientFirstName, patientLastName: $patientLastName, patientEmail: $patientEmail, drNotes: $drNotes, appointmentNotes: $appointmentNotes) {
+    _id
+    appointmentNotes
+    drNotes
+    patientEmail
+    patientFirstName
+    patientLastName
+    appointments {
+      _id
+      appointmentDate
+      createdAt
+      location
+      updatedAt
+    }
+  }
+}
+`

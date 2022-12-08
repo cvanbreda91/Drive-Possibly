@@ -2,14 +2,10 @@ import React from 'react';
 import { Box, Button } from '@chakra-ui/react'
 import PatientView from '../PatientView'
 
-const PatientList = ({ patients }) => {
+const PatientList = ({ patients,currentPatient,setPatient }) => {
+    
     const handleClick = (event) => {
-        console.log("howdy")
-        return (
-            <Box>
-                <PatientView />
-            </Box>
-        )
+        setPatient(event.target.id)
 
     }
 
@@ -22,6 +18,7 @@ const PatientList = ({ patients }) => {
                             mt={3}
                             bg='#53687E'
                             onClick={handleClick}
+                            id={patient._id}
                         >{patient.patientFirstName} {patient.patientLastName}</Button>
                     </Box>
                 ))}

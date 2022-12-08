@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PatientList from '../components/PatientList';
+import PatientView from '../components/PatientView';
 import { Box, SimpleGrid, Heading, HStack, Button } from '@chakra-ui/react'
 import {
   Popover,
@@ -23,6 +24,8 @@ import Auth from '../utils/auth';
 
 const DoctorsPage = (props) => {
   const initRef = React.useRef();
+  const [currentPatient,setPatient]=useState();
+ 
   const [formState, setFormState] = useState({ pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '' });
   const [addPatient, { error }] = useMutation(ADD_PATIENT);
   const { loading, data } = useQuery(QUERY_PATIENT);
@@ -119,10 +122,14 @@ const DoctorsPage = (props) => {
             There was an error processing your request
           </Alert>}
         <PatientList
-          patients={patients} />
+          patients={patients} currentPatient={currentPatient} setPatient={setPatient}/>
+          
       </Box>
+      <PatientView currentPatient={currentPatient} />
       <Box>
+     
       </Box>
+      
     </SimpleGrid>
   );
 };
