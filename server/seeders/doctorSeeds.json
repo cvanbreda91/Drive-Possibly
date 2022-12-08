@@ -1,0 +1,40 @@
+[
+    {
+        "drFirstName": "Kyle",
+        "drLastName": "Doctorson",
+        "drEmail": "doctorson@hospital.com",
+        "drPassword": "password",
+        "patients": [""],
+        "appointments": [""]
+    },
+    {
+        "drFirstName": "Sally",
+        "drLastName": "Doctorine",
+        "drEmail": "travellingDoc@clinic.com",
+        "drPassword": "12345678"
+    },
+    {
+        "drFirstName": "Dr.",
+        "drLastName": "Mario",
+        "drEmail": "itsame@mario.com",
+        "drPassword": "red beats green"
+    },
+    {
+        "drFirstName": "Nick",
+        "drLastName": "Riviera",
+        "drEmail": "hieverybody@imdrnick.com",
+        "drPassword": "passywordy"
+    },
+    {
+        "drFirstName": "Henry",
+        "drLastName": "Jekyll",
+        "drEmail": "iwillnothyde@maybe.com",
+        "drPassword": "asdfasdf"
+    },
+    {
+        "drFirstName": "Frederick",
+        "drLastName": "Frankenstein",
+        "drEmail": "bodybuilder@stitched.com",
+        "drPassword": "notthemonster"
+    }
+]
