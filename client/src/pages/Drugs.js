@@ -1,13 +1,17 @@
 import React from "react";
-import Drugs from "../components/Drugs";
-import Cart from "../components/Cart";
+import DrugList from "../components/Drugs";
+import { QUERY_DRUGS } from '../utils/queries';
+import { useQuery, useMutation } from '@apollo/client';
+import { Wrap } from '@chakra-ui/react'
 
-const Drugs = () => {
+const Drugs = (props) => {
+    const { loading, data } = useQuery(QUERY_DRUGS);
+    const drugs = data?.drugs || [];
     return (
-        <div className="container">
-            <Drugs />
-            <Cart />
-        </div>
+        <Wrap spacing='30px'>
+        <DrugList 
+        drugs={drugs}/>
+        </Wrap>
     );
 }
 

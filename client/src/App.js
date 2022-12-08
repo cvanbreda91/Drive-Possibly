@@ -22,7 +22,8 @@ import NoMatch from './pages/NoMatch';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
-import DoctorPage from './pages/DoctorsPage'
+import DoctorPage from './pages/DoctorsPage';
+import Drugs from './pages/Drugs';
 import Appoinment from './pages/Appointment';
 
 
@@ -92,6 +93,9 @@ function App() {
                     <Route
                       path='/appointment'
                       element={<Appoinment />} />
+                    <Route
+                      path='/drugs'
+                      element={<Drugs />} />
                   </Routes>
 
                 </div>

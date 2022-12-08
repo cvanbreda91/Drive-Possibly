@@ -2,10 +2,11 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Order = require('./Order');
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 
 // Construct a new instance of the schema class
-const doctorSchema = new Schema({
+const doctorSchema = new Schema(
+  {
   // Configure individual properties using Schema Types
   drFirstName: {
     type: String,
@@ -50,6 +51,6 @@ doctorSchema.virtual('patientCount').get(function() {
   return this.patients.length;
 });
 // Using mongoose.model() to compile a model based on the schema 'doctorSchema'
-const Doctor = mongoose.model('Doctor', doctorSchema);
+const Doctor = model('Doctor', doctorSchema);
 
 module.exports = Doctor;

@@ -1,9 +1,9 @@
-const { Appointment, Doctor, Patient, Order, Drug } = require('../models');
+const { Doctor, Patient, Order, Drug } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
-        me: async (parent, args) => {
+        me: async (parent, args, context) => {
             if (context.doctor) {
                 const doctorData = await Doctor.findOne({ _id: context.doctor._id })
                     .select('-__v -drPassword')
@@ -24,11 +24,13 @@ const resolvers = {
         drugs: async () => {
             return Drug.find();
         },
+        
         patient: async (parent, { _id }) => {
             return Patient.findOne({_id: _id} );
         },
         patients: async () => {
-            return Patient.find();
+            return Patient.find()
+            // .sort(patientLastName)
         },
         doctor: async (parent, { _id }) => {
 
@@ -39,9 +41,6 @@ const resolvers = {
 
             console.log(doctorData)
             return doctorData;
-
-
-
         }
 
 

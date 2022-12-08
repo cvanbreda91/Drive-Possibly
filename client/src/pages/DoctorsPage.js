@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PatientList from '../components/PatientList';
-import { Box, SimpleGrid, Heading, HStack, Button } from '@chakra-ui/react'
+import DrugList from '../components/Drugs'
+import { Box, Heading, HStack, Button } from '@chakra-ui/react'
 import {
+  Grid,
+  GridItem,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -11,14 +14,14 @@ import {
   AlertIcon,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
   FormControl,
   FormLabel,
-  Input
+  Input,
+  Text
 } from '@chakra-ui/react'
 import { ADD_PATIENT } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_PATIENT, QUERY_SINGLE_PATIENT } from '../utils/queries';
+import { QUERY_PATIENT, QUERY_DRUGS } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const DoctorsPage = (props) => {
@@ -26,6 +29,7 @@ const DoctorsPage = (props) => {
   const [formState, setFormState] = useState({ pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '' });
   const [addPatient, { error }] = useMutation(ADD_PATIENT);
   const { loading, data } = useQuery(QUERY_PATIENT);
+  // const { data: userData } = useQuery(QUERY_ME_BASIC);
   const patients = data?.patients || [];
 
   const handleChange = (event) => {
@@ -60,10 +64,10 @@ const DoctorsPage = (props) => {
       pateientFirstName: '', patientLastName: '', patientEmail: '', drNotes: '',
     });
   };
-
+// console.log (userData.me.doctorFristName)
   return (
-
-    <SimpleGrid columns={5} spacingX='40px' spacingY='20px'>
+    <Grid templateColumns='repeat(5, 1fr)'  templateRows='repeat(2, 1fr)' gap={6}>
+      <GridItem colSpan={1} rowSpan={2}>
       <Box bg='blue'>
         <HStack>
           <Heading>Patient List</Heading>
@@ -115,15 +119,18 @@ const DoctorsPage = (props) => {
           </Popover>
         </HStack>
         {error && <Alert status='error'>
-            <AlertIcon />
-            There was an error processing your request
-          </Alert>}
+          <AlertIcon />
+          There was an error processing your request
+        </Alert>}
         <PatientList
           patients={patients} />
       </Box>
-      <Box>
-      </Box>
-    </SimpleGrid>
+      </GridItem>
+      <GridItem colSpan={4} bg='papayawhip' />
+      <GridItem colSpan={4} bg='papayawhip'>
+      <Heading>Add Perscriptions</Heading>
+      </GridItem>
+    </Grid>
   );
 };
 
