@@ -14,7 +14,7 @@ Patients Please perfectly pleases patients by:
 - provides useful information on prescription drugs
 
 
-![Patients Please Website](./public/pictures/website-example.png)
+![Patients Please Website](./client/public/assets/images/patients-please-example.png)
 
 
 ## Table of Contents
@@ -32,22 +32,22 @@ To Install and begin developing the Patients Please project follow these easy st
 2. Enter the following command to create a clone of the AutoAuto Repo: '<b>git clone https://github.com/cvanbreda91/PatientsPlease.git</b>'
 3. Enter the following command to open the project in the Visual Studios development environment: '<b>code .</b>'
 
-![Repo Clone Installation](./public/pictures/npm-installation.png)
+![Repo Clone Installation](./client/public/assets/images/npm-installation.png)
 
 4. The project will still need to install the required node packages. Enter the following command to change directory to the newly cloned Patients Please project: '<b>cd PatientsPlease</b>' 
-5. Now that you are in the correct directory, install the node packages with the following command: '<b>npm i</b>'.
+5. Now that you are in the correct directory, install the node packages with the following command: '<b>npm install --legacy-peer-deps</b>'.
 
-![NPM Installation](./public/pictures/node-install.png)
+![NPM Installation](./client/public/assets/images/node-installation.png)
 
-6. Enter the following command to configue the build folder: '<b>npm run build</b>'
-7. The project is now ready to be run! Enter the following command to start Patients Please: '<b>npm start</b>'
+6. Enter the following command to seed the project with doctor and patient data: '<b>npm run seed</b>'
+7. The project is now ready to be run! Enter the following command to open Patients Please in GraphQL: '<b>npm start</b>'
 
 ## Usage
 
-To run the Patients Please application open the projects main folder in command line, then enter the command '<b>npm start</b>'
+To run the Patients Please application open the projects main folder in command line, then enter the command: '<b>npm run develop</b>'
 
 
-![Patients Please Doctor Page](./public/pictures/website-example.png)
+![Patients Please Sign In Page](./client/public/assets/images/patients-please-example-2.png)
 
 
 ## Credits

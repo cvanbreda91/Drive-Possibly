@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { Doctor, Patient, Drug, Appointment } = require('../models');
+const { Doctor, Patient, Drug, Appointment, Order } = require('../models');
 const doctorSeeds = require('./doctorSeeds.json');
 const patientSeeds = require('./patientSeeds.json');
 const drugSeeds = require('./drugSeeds.json');
@@ -11,20 +11,24 @@ db.once('open', async () => {
       await Patient.deleteMany({});
       await Drug.deleteMany({});
       await Appointment.deleteMany({});
+      await Order.deleteMany({});
   
       await Doctor.create(doctorSeeds);
   
-    //   for (let i = 0; i < thoughtSeeds.length; i++) {
-    //     const { _id, thoughtAuthor } = await Thought.create(thoughtSeeds[i]);
-    //     const user = await User.findOneAndUpdate(
-    //       { username: thoughtAuthor },
-    //       {
-    //         $addToSet: {
-    //           thoughts: _id,
-    //         },
-    //       }
-    //     );
-    //   }
+      for (let i = 0; i < patientSeeds.length; i++) {
+        const { _id, drId } = await Patient.create(patientSeeds[i]);
+        const doctor = await Doctor.findOneAndUpdate(
+          { _id: drId },
+          {
+            $addToSet: {
+              patients: _id,
+            },
+          }
+        );
+      }
+
+      await Drug.create(drugSeeds);
+    
     } catch (err) {
       console.error(err);
       process.exit(1);
